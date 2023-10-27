@@ -57,32 +57,31 @@ export default function Program() {
   };
 
   return (
-    <div className="py-14 flex justify-center w-full">
+    <div className="flex flex-col sm:flex-row justify-center w-full">
       <div className="flex flex-col">
-        <h1>Coloque abaixo a letra da música</h1>
-
         <textarea
           value={lyrics}
           onChange={handleLyricsChange}
           placeholder="Insira a letra da música..."
-          className="border-2 rounded-lg mt-2 border-black p-2 w-96 h-[70vh]"
+          className="block w-[40vh] h-[70vh] resize-none rounded border-0 bg-white py-1.5 px-3 text-gray-900 placeholder:text-gray-400 text-base sm:leading-6"
         />
+
         <div className="mt-2 flex justify-center gap-10">
           <button
-            className="bg-black text-white p-2 rounded-xl"
+            className="bg-black text-white p-2 rounded-lg border-[1px] border-white hover:bg-gray-600"
             onClick={handlePreview}
           >
             Pré Visualizar
           </button>
           <button
-            className="bg-black text-white p-2 rounded-xl"
+            className="bg-black text-white p-2 rounded-lg border-[1px] border-white hover:bg-gray-600"
             onClick={handleGeneratePPTX}
           >
-            Gerar PPTX
+            Fazer Download
           </button>
         </div>
       </div>
-      <div className="h-[80vh] flex flex-col items-center">
+      {/* <div className="h-[80vh] flex flex-col items-center">
         <h1>Pré visualização</h1>
         <div className="flex flex-col gap-2 px-40 h-full overflow-y-scroll">
           {slides.map((slide) => (
@@ -91,7 +90,7 @@ export default function Program() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
