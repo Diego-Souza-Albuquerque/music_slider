@@ -53,7 +53,7 @@ export default function Slider() {
         </div>
 
         <div className="mx-auto max-w-7xl px-3 pt-2 flex flex-col gap-2 sm:flex-row items-center justify-between">
-          <ul className="space-y-16 ">
+          <ul className="space-y-16 px-2">
             <li className="text-white text-xl flex">
               1 - Cole ou digite ao lado a letra da música
               <img
@@ -65,13 +65,13 @@ export default function Slider() {
             <li className="text-white text-xl flex">
               2 - Defina o espaço de 1 linha para separar cada slide
               <div className="h-12 rounded-lg bg-white relative -top-6 -right-4">
-                <img src="/jump.gif" alt="Seu GIF" className=" h-full " />
+                <img src="/jump.gif" alt="Seu GIF" className=" h-full w-full" />
               </div>
             </li>
             <li className="text-white text-xl flex">
               3 - Clique em pré-visualizar para ver como esta ficando
               <div className="h-14 rounded-lg bg-transparent relative -top-4 -right-4">
-                <img src="/look.gif" alt="Seu GIF" className=" h-full " />
+                <img src="/look.gif" alt="Seu GIF" className=" h-full w-full" />
               </div>
             </li>
             <li className="text-white text-xl flex">
@@ -79,7 +79,7 @@ export default function Slider() {
               <img
                 src="/check.gif"
                 alt="Seu GIF"
-                className="relative -top-1 -right-2  h-8 "
+                className="relative -top-1 -right-2  h-8 full"
               />
             </li>
           </ul>
