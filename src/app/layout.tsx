@@ -81,8 +81,12 @@ export default function RootLayout({
           </span>
 
           <nav className="flex gap-10">
-            <Link href="/">início</Link>
-            <Link href="/slider">usar</Link>
+            <Link className="hover:border-b hover:border-black" href="/">
+              início
+            </Link>
+            <Link className="hover:border-b hover:border-black" href="/slider">
+              usar
+            </Link>
             {/* <Link href="/subscribers">inscritos</Link> */}
           </nav>
         </header>

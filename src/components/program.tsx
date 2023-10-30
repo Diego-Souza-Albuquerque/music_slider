@@ -69,26 +69,26 @@ export default function Program() {
           transition={{
             type: "spring",
             stiffness: 260,
-            damping: 20,
+            damping: 50,
           }}
           className="w-full sm:w-[60vh] h-[70vh] relative"
         >
           <textarea
             value={lyrics}
             onChange={handleLyricsChange}
-            className="block w-full h-full resize-none rounded border-0 bg-white py-1.5 px-3 text-gray-900 placeholder:text-gray-400 text-lg sm:leading-6"
+            className="block w-full h-full resize-none border-0 bg-white py-1.5 px-3 text-gray-900 placeholder:text-gray-400 text-lg sm:leading-6"
           />
         </motion.div>
 
         <div className="mt-6 flex justify-center gap-20">
           <button
-            className="bg-black text-white p-2 rounded-lg border-[1px] border-white hover:bg-gray-600"
+            className="h-10 w-40 p-2 rounded-2xl border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
             onClick={handlePreview}
           >
             Pré Visualizar
           </button>
           <button
-            className="bg-black text-white p-2 rounded-lg border-[1px] border-white hover:bg-gray-600"
+            className="h-10 w-40 p-2 rounded-2xl border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
             onClick={handleGeneratePPTX}
           >
             Fazer Download

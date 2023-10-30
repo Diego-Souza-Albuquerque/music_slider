@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Search() {
   const [musicName, setMusicName] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setMusicName(e.target.value);
   };
 
