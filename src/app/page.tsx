@@ -1,3 +1,5 @@
+import ButtonStart from "@/components/buttonStart";
+
 export default function Home() {
   return (
     <div className="bg-gray-900">
@@ -47,11 +49,6 @@ export default function Home() {
           </div>
           <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 lg:flex lg:px-8 ">
             <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-              <img
-                className="h-11"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                alt="Your Company"
-              />
               <div className="mt-24 sm:mt-32 lg:mt-16"></div>
               <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
                 Transforme suas letras em slides incríveis de forma rápida e
@@ -62,16 +59,11 @@ export default function Home() {
                 é a solução para quem deseja criar slides de música de forma
                 prática e rápida
               </p>
-              <div className="mt-10 flex items-center gap-x-6">
-                <a
-                  href="/slider"
-                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >
-                  Vamos começar
-                </a>
+              <div className="mt-10 flex items-center gap-x-6  w-72">
+                <ButtonStart />
               </div>
             </div>
-            <div className="mx-auto  flex max-w-2xl mt-12 sm:mt-36 ml-0 sm:ml-10  lg:mr-0 lg:max-w-none lg:flex-none">
+            <div className="mx-auto  flex max-w-2xl mt-12 sm:mt-28 ml-0 sm:ml-10  lg:mr-0 lg:max-w-none lg:flex-none">
               <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
                 <img
                   src="Slide.png"
@@ -91,13 +83,18 @@ export default function Home() {
             Tecnologias usadas no projeto:
           </h2>
           <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="https://tailwindui.com/img/logos/158x48/transistor-logo-white.svg"
-              alt="Transistor"
-              width={158}
-              height={48}
-            />
+            <span className="flex">
+              <img
+                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1 invert"
+                src="next.webp"
+                alt="Transistor"
+                width={158}
+                height={48}
+              />
+              <h1 className="text-white text-xl relative -left-5 w-full top-2">
+                NEXT JS 14
+              </h1>
+            </span>
             <img
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg"

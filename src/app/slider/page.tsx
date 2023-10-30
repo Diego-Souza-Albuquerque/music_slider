@@ -1,10 +1,7 @@
+"use client";
 import Program from "@/components/program";
-
-export const metadata = {
-  title: "Sobre | Criação",
-  description:
-    "A music slider é um app gerador de slides para quem precisa de agilidade e praticidade.",
-};
+import Search from "@/components/search";
+import { TypeAnimation } from "react-type-animation";
 
 export default function Slider() {
   return (
@@ -53,36 +50,35 @@ export default function Slider() {
         </div>
 
         <div className="mx-auto max-w-7xl px-3 pt-2 flex flex-col gap-2 sm:flex-row items-center justify-between">
-          <ul className="space-y-16 px-2">
-            <li className="text-white text-xl flex">
-              1 - Cole ou digite ao lado a letra da música
-              <img
-                src="/write.gif"
-                alt="Seu GIF"
-                className="relative -top-8 -right-2  h-16 "
+          <div className="flex flex-col items-center w-full">
+            <Search />
+            <span className="px-2 text-white text-xs leading-8 mt-6 w-full">
+              <TypeAnimation
+                sequence={[
+                  `1 - Cole ou digite ao lado a letra da música\n
+                  2 - Defina o espaço de 1 linha para separar cada slide\n
+                  3 - Clique em pré-visualizar se quiser ver como será a divisão dos slides\n
+                  4 - Clique em fazer download para baixar seu slide`,
+                  1000,
+                  () => {
+                    console.log("Sequence completed");
+                  },
+                ]}
+                wrapper="span"
+                cursor={true}
+                speed={60}
+                repeat={Infinity}
+                style={{
+                  whiteSpace: "pre-line",
+                  height: "60vh",
+                  textAlign: "start",
+                  fontSize: "2em",
+                  display: "inline-block",
+                }}
               />
-            </li>
-            <li className="text-white text-xl flex">
-              2 - Defina o espaço de 1 linha para separar cada slide
-              <div className="h-12 rounded-lg bg-white relative -top-6 -right-4">
-                <img src="/jump.gif" alt="Seu GIF" className=" h-full w-full" />
-              </div>
-            </li>
-            <li className="text-white text-xl flex">
-              3 - Clique em pré-visualizar para ver como esta ficando
-              <div className="h-14 rounded-lg bg-transparent relative -top-4 -right-4">
-                <img src="/look.gif" alt="Seu GIF" className=" h-full w-full" />
-              </div>
-            </li>
-            <li className="text-white text-xl flex">
-              4 - Clique em fazer download para baixar seu slide
-              <img
-                src="/check.gif"
-                alt="Seu GIF"
-                className="relative -top-1 -right-2  h-8 full"
-              />
-            </li>
-          </ul>
+            </span>
+          </div>
+
           <div className="py-10">
             <Program />
           </div>

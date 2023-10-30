@@ -80,7 +80,7 @@ export default function Program() {
           />
         </motion.div>
 
-        <div className="mt-3 flex justify-center gap-20">
+        <div className="mt-6 flex justify-center gap-20">
           <button
             className="bg-black text-white p-2 rounded-lg border-[1px] border-white hover:bg-gray-600"
             onClick={handlePreview}
