@@ -4,6 +4,8 @@ import pptxgen from "pptxgenjs";
 import { motion } from "framer-motion";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 type SlideType = {
   id: number;
@@ -73,26 +75,28 @@ export default function Program() {
           }}
           className="w-full sm:w-[60vh] h-[70vh] relative"
         >
-          <textarea
+          <Textarea
             value={lyrics}
             onChange={handleLyricsChange}
-            className="block w-full h-full resize-none border-[1px] border-white bg-white py-1.5 px-3 text-gray-900 placeholder:text-gray-400 text-lg sm:leading-6"
+            className="block w-full h-full resize-none border-b-[0.5px] border-gray-500  py-2 px-3 placeholder:text-gray-400 text-lg sm:leading-6"
           />
         </motion.div>
 
         <div className="mt-6 flex justify-center gap-20">
-          <button
-            className="h-full w-40 p-2 rounded-2xl border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
+          <Button
+            className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
             onClick={handlePreview}
+            variant="outline"
           >
             Pré Visualizar
-          </button>
-          <button
-            className="h-full w-40 p-2 rounded-2xl border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
+          </Button>
+          <Button
+            className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
             onClick={handleGeneratePPTX}
+            variant="outline"
           >
             Fazer Download
-          </button>
+          </Button>
         </div>
       </div>
       <Transition.Root show={open} as={Fragment}>

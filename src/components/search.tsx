@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Search() {
   const [musicName, setMusicName] = useState("");
@@ -17,19 +19,21 @@ export default function Search() {
 
   return (
     <div className="flex gap-3 w-full">
-      <input
+      <Input
         type="text"
         value={musicName}
-        className="p-2 w-full"
+        className="py-2 px-3 border-b-[0.5px] border-gray-500 focus:border-0 w-full"
         onChange={handleInputChange}
         placeholder="Digite o nome da música"
       />
-      <button
-        className="h-10 w-40 p-2 rounded-2xl border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
+
+      <Button
+        className="h-10 w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
         onClick={handleSearch}
+        variant="outline"
       >
         Pesquisar
-      </button>
+      </Button>
     </div>
   );
 }
