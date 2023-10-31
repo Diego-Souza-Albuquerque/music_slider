@@ -49,8 +49,8 @@ export default function Slider() {
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-3 pt-2 flex flex-col gap-2 sm:flex-row items-center justify-between">
-          <div className="flex flex-col items-center w-full">
+        <div className="mx-auto max-w-7xl px-6 pt-2 flex flex-col gap-6 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between">
+          <div className="flex flex-col items-center w-full justify-start py-10 gap-6">
             <Search />
             <Text />
           </div>

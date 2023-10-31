@@ -16,7 +16,7 @@ export default function Search() {
   };
 
   return (
-    <div className="flex gap-3 w-full px-10">
+    <div className="flex gap-3 w-full">
       <input
         type="text"
         value={musicName}

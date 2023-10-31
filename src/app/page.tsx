@@ -1,9 +1,10 @@
 import ButtonStart from "@/components/buttonStart";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="bg-gray-900">
-      <main>
+      <main className="flex flex-col">
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
           <svg
@@ -47,82 +48,91 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 lg:flex lg:px-8 ">
-            <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
+          <div className="mx-auto px-6 pb-10 pt-2 lg:pt-10 lg:pb-24 lg:flex justify-center items-start lg:px-6 ">
+            <div className="mx-auto max-w-3xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
               <div className="mt-24 sm:mt-32 lg:mt-16"></div>
-              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl">
                 Transforme suas letras em slides incríveis de forma rápida e
                 prática
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
                 Não perca mais tempo criando slides manualmente, o Music Slider
                 é a solução para quem deseja criar slides de música de forma
-                prática e rápida
+                prática e rápida, online e gratuita.
               </p>
               <div className="mt-10 flex items-center gap-x-6  w-72">
                 <ButtonStart />
               </div>
             </div>
-            <div className="mx-auto  flex max-w-2xl mt-12 sm:mt-28 ml-0 sm:ml-10  lg:mr-0 lg:max-w-none lg:flex-none">
-              <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-                <img
-                  src="Slide.png"
-                  alt="App screenshot"
-                  width={2432}
-                  height={1442}
-                  className="w-[50vh] sm:w-[90vh] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
-                />
-              </div>
+            <div className="mx-auto max-w-[850px] mt-12 sm:mt-28 ml-0 sm:ml-0 lg:mr-0 ">
+              <video
+                src="/show.mp4"
+                autoPlay
+                muted
+                loop
+                className="w-full rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+              />
             </div>
           </div>
         </div>
 
         {/* Logo cloud */}
         <div className="mx-auto py-6 max-w-7xl px-6">
-          <h2 className="text-center text-lg font-semibold leading-8 text-white">
+          <h2 className="text-center text-xl font-semibold leading-8 text-white">
             Tecnologias usadas no projeto:
           </h2>
-          <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <span className="flex">
+          <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-3xl sm:gap-x-10 lg:mx-0 justify-center">
+            <span className="flex gap-2 items-center justify-center">
               <img
-                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1 invert"
+                className="max-h-12 w-full object-contain invert"
                 src="next.webp"
                 alt="Transistor"
                 width={158}
                 height={48}
               />
-              <h1 className="text-white text-xl relative -left-5 w-full top-2">
-                NEXT JS 14
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                NEXT.JS
+              </h1>
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                14
               </h1>
             </span>
-            <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg"
-              alt="Reform"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="https://tailwindui.com/img/logos/158x48/tuple-logo-white.svg"
-              alt="Tuple"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-              src="https://tailwindui.com/img/logos/158x48/savvycal-logo-white.svg"
-              alt="SavvyCal"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
-              width={158}
-              height={48}
-            />
+            <span className="flex gap-2 items-center justify-center">
+              <img
+                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
+                src="ts.png"
+                alt="Reform"
+                width={158}
+                height={48}
+              />
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                TYPESCRIPT
+              </h1>
+            </span>
+            <span className="flex gap-2 items-center justify-center">
+              <img
+                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
+                src="tailwind.png"
+                alt="Reform"
+                width={158}
+                height={48}
+              />
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                TAILWIND
+              </h1>
+            </span>
+            <span className="flex gap-2 items-center justify-center">
+              <img
+                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
+                src="react.png"
+                alt="Reform"
+                width={158}
+                height={48}
+              />
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                REACT
+              </h1>
+            </span>
           </div>
         </div>
       </main>
