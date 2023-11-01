@@ -7,8 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { HeartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
 
@@ -77,7 +76,7 @@ export default function Slider() {
 
     if (songUrl === null) {
       console.error("URL da música é nula. Verifique o ID.");
-      return; // ou lance uma exceção ou trate de outra forma, conforme apropriado
+      return;
     }
 
     try {
@@ -92,8 +91,6 @@ export default function Slider() {
       console.error("Erro ao obter a música:", error);
     }
   };
-
-  console.log(lyrics);
 
   return (
     <main className="bg-gray-900 h-full sm:h-screen w-full">
@@ -218,15 +215,6 @@ export default function Slider() {
                     </Transition.Child>
                     <div className="h-full overflow-y-auto bg-white p-8">
                       <div className="space-y-6 pb-16">
-                        {/*   <div>
-                          <div className=" h-40 w-full overflow-hidden rounded-lg">
-                            <img
-                              src="https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80"
-                              alt=""
-                              className="object-cover"
-                            />
-                          </div>
-                        </div> */}
                         <div>
                           <h3 className="font-medium text-gray-900 text-xl">
                             Escolha alguma das opções abaixo:

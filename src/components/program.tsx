@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import pptxgen from "pptxgenjs";
 import { motion } from "framer-motion";
 import { Dialog, Transition } from "@headlessui/react";
@@ -16,12 +16,7 @@ export default function Program(props: any) {
   const [lyrics, setLyrics] = useState("");
   const [slides, setSlides] = useState<SlideType[]>([]);
   const [open, setOpen] = useState(false);
-  const [vagalume, setVagalume] = useState("");
   const pptx = new pptxgen();
-
-  /* useEffect(() => {
-    setVagalume(props);
-  }, [props]); */
 
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
