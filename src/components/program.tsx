@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import pptxgen from "pptxgenjs";
 import { motion } from "framer-motion";
 import { Dialog, Transition } from "@headlessui/react";
@@ -12,11 +12,16 @@ type SlideType = {
   content: string;
 };
 
-export default function Program() {
+export default function Program(props: any) {
   const [lyrics, setLyrics] = useState("");
   const [slides, setSlides] = useState<SlideType[]>([]);
   const [open, setOpen] = useState(false);
+  const [vagalume, setVagalume] = useState("");
   const pptx = new pptxgen();
+
+  /* useEffect(() => {
+    setVagalume(props);
+  }, [props]); */
 
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
@@ -73,11 +78,12 @@ export default function Program() {
             stiffness: 260,
             damping: 50,
           }}
-          className="w-full sm:w-[60vh] h-[70vh] relative"
+          className="w-full sm:w-[65vh] h-[70vh] relative"
         >
           <Textarea
             value={lyrics}
             onChange={handleLyricsChange}
+            defaultValue={props.letraVagalume}
             className="block w-full h-full resize-none border-b-[0.5px] border-gray-500  py-2 px-3 placeholder:text-gray-400 text-lg sm:leading-6"
           />
         </motion.div>
