@@ -81,10 +81,10 @@ export default function Home() {
           <h2 className="text-center text-xl font-semibold leading-8 text-white">
             Tecnologias usadas no projeto:
           </h2>
-          <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-3xl sm:gap-x-10 lg:mx-0 justify-center">
+          <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-5xl sm:gap-x-10 lg:mx-0 justify-center">
             <span className="flex gap-2 items-center justify-center">
               <img
-                className="max-h-12 w-full object-contain invert"
+                className="max-h-[44px] w-full object-contain invert"
                 src="next.webp"
                 alt="Transistor"
                 width={158}
@@ -99,7 +99,7 @@ export default function Home() {
             </span>
             <span className="flex gap-2 items-center justify-center">
               <img
-                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
+                className="col-span-2 max-h-[38px] w-full object-contain lg:col-span-1 invert"
                 src="ts.png"
                 alt="Reform"
                 width={158}
@@ -131,6 +131,18 @@ export default function Home() {
               />
               <h1 className="text-white text-xl font-semibold relative w-full">
                 REACT
+              </h1>
+            </span>
+            <span className="flex gap-2 items-center justify-center ">
+              <img
+                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
+                src="node.png"
+                alt="Reform"
+                width={158}
+                height={48}
+              />
+              <h1 className="text-white text-xl font-semibold relative w-full">
+                NODEJS
               </h1>
             </span>
           </div>

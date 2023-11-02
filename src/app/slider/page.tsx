@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 
 import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
 
@@ -21,9 +22,8 @@ export default function Slider() {
   const [open, setOpen] = useState(false);
   const [musicName, setMusicName] = useState("");
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const [selectedSong, setSelectedSong] = useState("");
-  const [selectedArtist, setSelectedArtist] = useState("");
   const [lyrics, setLyrics] = useState("");
+  const [show, setShow] = useState(false);
 
   const handleInputChange = (e: any) => {
     setMusicName(e.target.value);
@@ -53,20 +53,31 @@ export default function Slider() {
           typeof titleWithArtist[1] === "string"
         ) {
           const title = titleWithArtist[0].trim();
-          const artist = titleWithArtist[1].trim();
+          const artist = titleWithArtist[1].replace(/\.\.\./g, "").trim();
           const id = `${title}#${artist}`;
 
-          songs.push({
-            id,
-            title,
-            artist_or_author: artist,
-          });
+          if (
+            artist !== "fotos" &&
+            artist !== "relacionados" &&
+            artist !== "VAGALUME"
+          ) {
+            songs.push({
+              id,
+              title,
+              artist_or_author: artist,
+            });
+          }
         }
       }
 
       setSearchResults(songs);
       setOpen(true);
     } catch (error) {
+      setShow(true);
+      setTimeout(() => {
+        setShow(false);
+        searchInternet();
+      }, 2500);
       console.error("Erro na pesquisa:", error);
     }
   };
@@ -82,12 +93,17 @@ export default function Slider() {
     try {
       const response = await fetch(songUrl);
       const data = await response.json();
-      setSelectedSong(data.mus[0].name);
-      setSelectedArtist(data.art);
-      setLyrics(data.mus[0].text);
+      setLyrics(`${data.mus[0].name}
+${data.art.name}
+
+${data.mus[0].text}`);
       console.log(data);
       setOpen(false);
     } catch (error) {
+      setShow(true);
+      setTimeout(() => {
+        setShow(false);
+      }, 3000);
       console.error("Erro ao obter a música:", error);
     }
   };
@@ -146,6 +162,11 @@ export default function Slider() {
                 className="py-2 px-3 border-b-[0.5px] border-gray-500 focus:border-0 w-full"
                 onChange={handleInputChange}
                 placeholder="Digite o nome da música"
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
               />
 
               <Button
@@ -258,6 +279,45 @@ export default function Slider() {
           </div>
         </Dialog>
       </Transition.Root>
+
+      <div
+        aria-live="assertive"
+        className="pointer-events-none fixed z-50 bottom-0 w-full flex items-end px-4 py-6 sm:items-start sm:p-6"
+      >
+        <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+          <Transition
+            show={show}
+            as={Fragment}
+            enter="transform ease-out duration-700 transition"
+            enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+            enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+            leave="transition ease-in duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="p-4">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <XCircleIcon
+                      className="h-6 w-6 text-red-400"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="ml-3 w-0 flex-1 pt-0.5">
+                    <p className="text-sm font-medium text-gray-900">
+                      Ocorreu algum erro...
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Faça o procedimento de forma manual
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </div>
     </main>
   );
 }

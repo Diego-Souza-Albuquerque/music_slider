@@ -1,6 +1,6 @@
 export default function Text() {
   return (
-    <span className="text-white text-[22px] space-y-8 mt-6 w-full">
+    <span className="text-white text-[20px] space-y-8 mt-6 w-full">
       <h2>1 - Pesquise a música no campo acima ou digite a letra da música</h2>
       <h2> 2 - Defina o espaço de 1 linha para separar cada slide</h2>
       <h2>
