@@ -77,7 +77,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="flex items-center justify-between w-full py-4 px-6 border-b-[0.5px] border-gray-500">
+          <header className="flex items-center justify-between w-full py-4 px-12 border-b-[0.5px] border-gray-500">
             <span className="text-2xl font-black cursor-default">
               MUSIC SLIDER
             </span>
@@ -107,7 +107,7 @@ export default function RootLayout({
             <h2 id="footer-heading" className="sr-only">
               Footer
             </h2>
-            <div className="mx-auto w-full px-6 pb-8 pt-4 lg:px-8">
+            <div className="mx-auto w-full px-12 pb-8 pt-4 lg:px-8">
               <div className="border-t border-white/10 pt-4 md:flex md:items-center md:justify-between">
                 <div className="flex space-x-6 md:order-2">
                   {footerNavigation.social.map((item) => (

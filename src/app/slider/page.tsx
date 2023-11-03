@@ -153,8 +153,8 @@ ${data.mus[0].text}`);
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 pt-2 flex flex-col gap-6 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between">
-          <div className="flex flex-col items-center w-full justify-start py-10 gap-6">
+        <div className="mx-auto px-12 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-start">
+          <div className="flex flex-col items-center w-1/3 justify-start py-10 gap-6">
             <div className="flex gap-3 w-full">
               <Input
                 type="text"
@@ -234,26 +234,26 @@ ${data.mus[0].text}`);
                         </button>
                       </div>
                     </Transition.Child>
-                    <div className="h-full overflow-y-auto bg-white p-8">
-                      <div className="space-y-6 pb-16">
+                    <div className="h-full overflow-y-auto bg-white dark:bg-gray-900 p-8">
+                      <div className="space-y-6 pb-16 ">
                         <div>
-                          <h3 className="font-medium text-gray-900 text-xl">
+                          <h3 className="px-1 font-medium text-gray-900 text-xl dark:text-white">
                             Escolha alguma das opções abaixo:
                           </h3>
-                          <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200">
-                            <div className="flex text-black w-full justify-between py-2 bg-gray-200 px-1">
+                          <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200 border-[1px]">
+                            <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-1">
                               <h1>Título da música</h1> <h1>Autor</h1>
                             </div>
                             {searchResults.map((song) => (
                               <div
                                 key={song.id}
                                 onClick={() => handleSongSelect(song.id)}
-                                className="flex justify-between py-3 text-sm font-medium cursor-pointer hover:font-semibold"
+                                className="px-2 flex justify-between py-3 text-sm font-medium cursor-pointer hover:font-semibold"
                               >
-                                <dt className="text-gray-500">
+                                <dt className="text-gray-500 dark:text-white">
                                   {song.title.replace(" - VAGALUME", "")}
                                 </dt>
-                                <dd className="text-gray-900">
+                                <dd className="text-gray-900 dark:text-white">
                                   {song.artist_or_author}
                                 </dd>
                               </div>
@@ -263,7 +263,7 @@ ${data.mus[0].text}`);
 
                         <div className="flex items-center justify-center">
                           <Button
-                            className="h-full w-60 text-black p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-gray-100 hover:text-black text-base font-semibold "
+                            className="h-full w-60 text-black dark:text-white dark:hover:text-black p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-gray-100 hover:text-black text-base font-semibold "
                             onClick={searchInternet}
                             variant="outline"
                           >
