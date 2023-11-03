@@ -23,6 +23,14 @@ export default function Program(props: any) {
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
     slide.background = { color: `${checked ? "ffffff" : "000000"}` };
+    slide.addImage({
+      x: "78%",
+      y: "62%",
+      w: 2,
+      h: 2,
+      transparency: 50,
+      path: "/vercel.svg",
+    });
     slide.addText(letra, {
       x: 0.5,
       y: 0.1,
@@ -82,7 +90,6 @@ export default function Program(props: any) {
           className="w-full sm:w-[55vh] h-full relative"
         >
           <Textarea
-            value={lyrics}
             onChange={handleLyricsChange}
             defaultValue={props.letraVagalume}
             className="block w-full h-[70vh] resize-none border-b-[0.5px] border-gray-500  py-2 px-3 placeholder:text-gray-400 text-lg sm:leading-6"
@@ -113,12 +120,6 @@ export default function Program(props: any) {
         </span>
         <span className="flex items-center w-full mt-2">
           Inverter Cores:
-          {/* <Switch
-            checked={checked}
-            onCheckedChange={blackBackground}
-            defaultChecked={true}
-            className="ml-2"
-          /> */}
           <Checkbox
             checked={checked}
             onCheckedChange={blackBackground}
