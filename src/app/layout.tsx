@@ -83,14 +83,23 @@ export default function RootLayout({
             </span>
 
             <nav className="flex gap-10 items-center">
-              <Link className="hover:border-b hover:border-black" href="/">
-                início
+              <Link
+                className="hover:border-b hover:border-black dark:hover:border-white"
+                href="/"
+              >
+                Início
               </Link>
               <Link
-                className="hover:border-b hover:border-black"
+                className="hover:border-b hover:border-black dark:hover:border-white"
                 href="/slider"
               >
-                usar
+                Slider
+              </Link>
+              <Link
+                className="hover:border-b hover:border-black dark:hover:border-white"
+                href="/about"
+              >
+                Sobre
               </Link>
               {/* <Link href="/subscribers">inscritos</Link> */}
               <ModeToggle />

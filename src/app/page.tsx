@@ -83,9 +83,9 @@ export default function Home() {
           </h2>
           <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-5xl sm:gap-x-10 lg:mx-0 justify-center">
             <span className="flex gap-2 items-center justify-center">
-              <img
+              <Image
                 className="max-h-[44px] w-full object-contain invert"
-                src="next.webp"
+                src="/next.webp"
                 alt="Transistor"
                 width={158}
                 height={48}
@@ -98,9 +98,9 @@ export default function Home() {
               </h1>
             </span>
             <span className="flex gap-2 items-center justify-center">
-              <img
+              <Image
                 className="col-span-2 max-h-[38px] w-full object-contain lg:col-span-1 invert"
-                src="ts.png"
+                src="/ts.png"
                 alt="Reform"
                 width={158}
                 height={48}
@@ -110,9 +110,9 @@ export default function Home() {
               </h1>
             </span>
             <span className="flex gap-2 items-center justify-center">
-              <img
+              <Image
                 className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="tailwind.png"
+                src="/tailwind.png"
                 alt="Reform"
                 width={158}
                 height={48}
@@ -122,9 +122,9 @@ export default function Home() {
               </h1>
             </span>
             <span className="flex gap-2 items-center justify-center">
-              <img
+              <Image
                 className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="react.png"
+                src="/react.png"
                 alt="Reform"
                 width={158}
                 height={48}
@@ -134,9 +134,9 @@ export default function Home() {
               </h1>
             </span>
             <span className="flex gap-2 items-center justify-center ">
-              <img
+              <Image
                 className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="node.png"
+                src="/node.png"
                 alt="Reform"
                 width={158}
                 height={48}
