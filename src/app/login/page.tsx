@@ -3,8 +3,6 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-
 export default function Login() {
   const { register, handleSubmit } = useForm();
   /* const { signIn, isAuthenticated } = useContext<any>(AuthContext);
@@ -19,11 +17,9 @@ export default function Login() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <Image
+          <img
             className="mx-auto h-10 w-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            width={500}
-            height={500}
             alt="Your Company"
           />
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
@@ -129,10 +125,7 @@ export default function Login() {
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <button
-                  onClick={() => signIn("google")}
-                  className="flex w-full items-center justify-center gap-3 rounded-md bg-[#1D9BF0] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D9BF0]"
-                >
+                <button className="flex w-full items-center justify-center gap-3 rounded-md bg-[#1D9BF0] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D9BF0]">
                   <svg
                     className="h-5 w-5"
                     aria-hidden="true"
