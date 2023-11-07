@@ -4,6 +4,9 @@ import "./globals.css";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/dark-mode-toggle";
+import { ReactNode } from "react";
+import Providers from "@/components/Providers";
+import SignInButton from "@/components/SignInButton";
 
 const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -71,73 +74,76 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <header className="flex items-center justify-between w-full py-4 px-12 border-b-[0.5px] border-gray-500">
-            <span className="text-2xl font-black cursor-default">
-              MUSIC SLIDER
-            </span>
-
-            <nav className="flex gap-10 items-center">
-              <Link
-                className="hover:border-b hover:border-black dark:hover:border-white"
-                href="/"
-              >
-                Início
-              </Link>
-              <Link
-                className="hover:border-b hover:border-black dark:hover:border-white"
-                href="/slider"
-              >
-                Slider
-              </Link>
-              <Link
-                className="hover:border-b hover:border-black dark:hover:border-white"
-                href="/about"
-              >
-                Sobre
-              </Link>
-              {/* <Link href="/subscribers">inscritos</Link> */}
-              <ModeToggle />
-            </nav>
-          </header>
-
-          {children}
-
-          {/* Footer */}
-          <footer
-            aria-labelledby="footer-heading"
-            className="relative dark:bg-gray-900 bg-white py-5 border-t border-gray-500"
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
           >
-            <h2 id="footer-heading" className="sr-only">
-              Footer
-            </h2>
-            <div className="mx-auto w-full px-12 lg:px-8">
-              <div className=" md:flex md:items-center md:justify-between">
-                <div className="flex space-x-6 md:order-2">
-                  {footerNavigation.social.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      target="blank"
-                      className="text-gray-500 hover:text-gray-400"
-                    >
-                      <span className="sr-only">{item.name}</span>
-                      <item.icon className="h-6 w-6" aria-hidden="true" />
-                    </a>
-                  ))}
+            <header className="flex items-center justify-between w-full py-4 px-12 border-b-[0.5px] border-gray-500">
+              <span className="text-2xl font-black cursor-default">
+                MUSIC SLIDER
+              </span>
+
+              <nav className="flex gap-10 items-center">
+                <Link
+                  className="hover:border-b hover:border-black dark:hover:border-white"
+                  href="/"
+                >
+                  Início
+                </Link>
+                <Link
+                  className="hover:border-b hover:border-black dark:hover:border-white"
+                  href="/slider"
+                >
+                  Slider
+                </Link>
+                <Link
+                  className="hover:border-b hover:border-black dark:hover:border-white"
+                  href="/about"
+                >
+                  Sobre
+                </Link>
+                {/* <Link href="/subscribers">inscritos</Link> */}
+                <SignInButton />
+                <ModeToggle />
+              </nav>
+            </header>
+
+            {children}
+
+            {/* Footer */}
+            <footer
+              aria-labelledby="footer-heading"
+              className="relative dark:bg-gray-900 bg-white py-5 border-t border-gray-500"
+            >
+              <h2 id="footer-heading" className="sr-only">
+                Footer
+              </h2>
+              <div className="mx-auto w-full px-12 lg:px-8">
+                <div className=" md:flex md:items-center md:justify-between">
+                  <div className="flex space-x-6 md:order-2">
+                    {footerNavigation.social.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        target="blank"
+                        className="text-gray-500 hover:text-gray-400"
+                      >
+                        <span className="sr-only">{item.name}</span>
+                        <item.icon className="h-6 w-6" aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                  <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
+                    &copy; 2023 Diego Albuquerque, Inc. All rights reserved.
+                  </p>
                 </div>
-                <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-                  &copy; 2023 Diego Albuquerque, Inc. All rights reserved.
-                </p>
               </div>
-            </div>
-          </footer>
-        </ThemeProvider>
+            </footer>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

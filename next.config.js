@@ -4,6 +4,10 @@ const nextConfig = {
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     CX_CONFIG_ID: process.env.CX_CONFIG_ID,
     VAGALUME_API_KEY: process.env.VAGALUME_API_KEY,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
+    UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
   },
   images: {
     remotePatterns: [
@@ -12,6 +16,9 @@ const nextConfig = {
       },
       {
         hostname: "media.licdn.com",
+      },
+      {
+        hostname: "lh3.googleusercontent.com",
       },
     ],
   },

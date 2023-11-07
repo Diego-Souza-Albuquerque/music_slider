@@ -24,9 +24,11 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+
   const isAuthenticated = !!user;
 
   async function signIn({ email, password }: SignInData) {
+    console.log("chamou");
     const { token, user } = await singInRequest({
       email,
       password,
