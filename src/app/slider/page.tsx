@@ -248,7 +248,7 @@ ${data.mus[0].text}`);
                               <div
                                 key={song.id}
                                 onClick={() => handleSongSelect(song.id)}
-                                className="px-2 flex justify-between py-3 text-sm font-medium cursor-pointer hover:font-semibold"
+                                className="px-2 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
                               >
                                 <dt className="text-gray-500 dark:text-white">
                                   {song.title.replace(" - VAGALUME", "")}

@@ -111,13 +111,13 @@ export default function RootLayout({
           {/* Footer */}
           <footer
             aria-labelledby="footer-heading"
-            className="relative bg-gray-900 pt-10"
+            className="relative dark:bg-gray-900 bg-white py-5 border-t border-gray-500"
           >
             <h2 id="footer-heading" className="sr-only">
               Footer
             </h2>
-            <div className="mx-auto w-full px-12 pb-8 pt-4 lg:px-8">
-              <div className="border-t border-white/10 pt-4 md:flex md:items-center md:justify-between">
+            <div className="mx-auto w-full px-12 lg:px-8">
+              <div className=" md:flex md:items-center md:justify-between">
                 <div className="flex space-x-6 md:order-2">
                   {footerNavigation.social.map((item) => (
                     <a

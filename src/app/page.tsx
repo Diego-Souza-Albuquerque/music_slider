@@ -1,9 +1,8 @@
 import ButtonStart from "@/components/buttonStart";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-gray-900">
+    <div className="bg-gray-900 h-screen">
       <main className="flex flex-col">
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
@@ -73,78 +72,6 @@ export default function Home() {
                 className="w-full rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
               />
             </div>
-          </div>
-        </div>
-
-        {/* Logo cloud */}
-        <div className="mx-auto py-6 max-w-7xl px-6">
-          <h2 className="text-center text-xl font-semibold leading-8 text-white">
-            Tecnologias usadas no projeto:
-          </h2>
-          <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-5xl sm:gap-x-10 lg:mx-0 justify-center">
-            <span className="flex gap-2 items-center justify-center">
-              <Image
-                className="max-h-[44px] w-full object-contain invert"
-                src="/next.webp"
-                alt="Transistor"
-                width={158}
-                height={48}
-              />
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                NEXT.JS
-              </h1>
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                14
-              </h1>
-            </span>
-            <span className="flex gap-2 items-center justify-center">
-              <Image
-                className="col-span-2 max-h-[38px] w-full object-contain lg:col-span-1 invert"
-                src="/ts.png"
-                alt="Reform"
-                width={158}
-                height={48}
-              />
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                TYPESCRIPT
-              </h1>
-            </span>
-            <span className="flex gap-2 items-center justify-center">
-              <Image
-                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="/tailwind.png"
-                alt="Reform"
-                width={158}
-                height={48}
-              />
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                TAILWIND
-              </h1>
-            </span>
-            <span className="flex gap-2 items-center justify-center">
-              <Image
-                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="/react.png"
-                alt="Reform"
-                width={158}
-                height={48}
-              />
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                REACT
-              </h1>
-            </span>
-            <span className="flex gap-2 items-center justify-center ">
-              <Image
-                className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 invert"
-                src="/node.png"
-                alt="Reform"
-                width={158}
-                height={48}
-              />
-              <h1 className="text-white text-xl font-semibold relative w-full">
-                NODEJS
-              </h1>
-            </span>
           </div>
         </div>
       </main>

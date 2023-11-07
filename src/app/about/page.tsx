@@ -210,29 +210,94 @@ export default function Example() {
       </div> */}
 
       {/* Logo cloud */}
-
-      {/* Team section */}
-      <div className="mx-auto my-32 max-w-7xl px-6 sm:mt-12 ">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <div className="flex items-center justify-start gap-4">
+      <div className="mx-auto pt-28 max-w-7xl px-6 flex flex-col items-center">
+        <h2 className="text-center text-xl font-semibold leading-8 text-black dark:text-white">
+          Tecnologias usadas no projeto:
+        </h2>
+        <div className="mx-auto mt-8 flex flex-wrap items-center gap-x-8 gap-y-10 max-w-5xl sm:gap-x-10 lg:mx-0 justify-center">
+          <span className="flex gap-2 items-center justify-center">
             <Image
-              className="h-24 w-24 rounded-full"
-              src={
-                "https://media.licdn.com/dms/image/C4D03AQGRbACCLcqumQ/profile-displayphoto-shrink_200_200/0/1636812677000?e=1704326400&v=beta&t=61hKXcyFo-w0v3L1cE5UmAUVwveJFqdA_pycu3Se6W8"
-              }
-              alt=""
-              width={1600}
-              height={1200}
+              className="max-h-[44px] w-full object-contain dark:invert"
+              src="/next.webp"
+              alt="Transistor"
+              width={158}
+              height={48}
             />
-
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-              Sobre mim
-            </h2>
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              NEXT.JS
+            </h1>
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              14
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center">
+            <Image
+              className="col-span-2 max-h-[38px] w-full object-contain lg:col-span-1 dark:invert"
+              src="/ts.png"
+              alt="Reform"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              TYPESCRIPT
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center">
+            <Image
+              className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 dark:invert"
+              src="/tailwind.png"
+              alt="Reform"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              TAILWIND
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center">
+            <Image
+              className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 dark:invert"
+              src="/react.png"
+              alt="Reform"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              REACT
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center ">
+            <Image
+              className="col-span-2 max-h-[42px] w-full object-contain lg:col-span-1 dark:invert"
+              src="/node.png"
+              alt="Reform"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+              NODEJS
+            </h1>
+          </span>
+        </div>
+        {/* Team section */}
+        <div className="mx-auto mb-40 pt-10 max-w-7xl px-6 sm:mt-12 flex items-center">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <div className="flex items-center justify-start gap-4">
+              <Image
+                className="h-24 w-24 rounded-full"
+                src={
+                  "https://media.licdn.com/dms/image/C4D03AQGRbACCLcqumQ/profile-displayphoto-shrink_200_200/0/1636812677000?e=1704326400&v=beta&t=61hKXcyFo-w0v3L1cE5UmAUVwveJFqdA_pycu3Se6W8"
+                }
+                alt=""
+                width={1600}
+                height={1200}
+              />
+              <p className=" text-lg leading-8 text-gray-600 dark:text-gray-300">
+                Olá, meu nome é Diego Albuquerque, sou apaixonado por
+                programação e busco sempre colocar propósito naquilo que eu faço
+              </p>
+            </div>
           </div>
-          <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-            Olá, meu nome é Diego, sou apaixonado por programação e busco sempre
-            colocar propósito naquilo que eu faço
-          </p>
         </div>
       </div>
     </main>
