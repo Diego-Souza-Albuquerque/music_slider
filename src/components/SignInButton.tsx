@@ -62,9 +62,9 @@ const SignInButton = () => {
     );
   }
   return (
-    <button onClick={() => signIn("google")} className="text-green-600 ml-auto">
+    <a href="/login" className="text-green-600 ml-auto">
       Sign In
-    </button>
+    </a>
   );
 };
 

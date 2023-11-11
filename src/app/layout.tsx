@@ -4,10 +4,8 @@ import "./globals.css";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/dark-mode-toggle";
-import { ReactNode } from "react";
 import Providers from "@/components/Providers";
 import SignInButton from "@/components/SignInButton";
-
 const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -105,7 +103,7 @@ export default function RootLayout({
                 >
                   Sobre
                 </Link>
-                {/* <Link href="/subscribers">inscritos</Link> */}
+
                 <SignInButton />
                 <ModeToggle />
               </nav>
