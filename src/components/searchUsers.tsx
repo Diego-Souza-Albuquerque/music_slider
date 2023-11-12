@@ -33,7 +33,7 @@ export default function SearchUsers() {
         <h2 className="text-white">Usuários cadastrados:</h2>
 
         <ul className="text-white">
-          {users.map((user) => (
+          {users?.map((user) => (
             <li key={user._id}>
               <div className="flex">
                 {user.name} - {user.email} - Preferências: bgBlack:{" "}
