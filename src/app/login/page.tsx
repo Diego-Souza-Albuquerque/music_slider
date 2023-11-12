@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import SearchUsers from "@/components/searchUsers";
 import { FcGoogle } from "react-icons/fc";
+import Image from "next/image";
 export default function Login() {
   const { register, handleSubmit } = useForm();
 
@@ -42,8 +43,10 @@ export default function Login() {
       <div className="flex justify-center items-start w-full">
         <div className="flex min-h-full flex-1 flex-col justify-start  py-4 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <img
+            <Image
               className="mx-auto h-10 w-auto"
+              width={500}
+              height={500}
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company"
             />

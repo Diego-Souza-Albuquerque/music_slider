@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        // Configuração para permitir solicitações de qualquer origem (CORS básico)
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+    ];
+  },
   env: {
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     CX_CONFIG_ID: process.env.CX_CONFIG_ID,
