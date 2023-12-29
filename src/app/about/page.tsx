@@ -21,7 +21,7 @@ const team = [
   // More people...
 ];
 
-export default function Example() {
+export default function About() {
   return (
     <main className="isolate">
       {/* Hero section */}

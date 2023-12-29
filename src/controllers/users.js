@@ -1,9 +1,7 @@
-import Users from "../../../models/users";
-import { NextResponse } from "next/server";
-import connectMongoDB from "../../../../config/database";
-import bcryptjs from "bcryptjs";
+import Users from "../models/users.js";
+import jwt from "jsonwebtoken";
 
-export async function GET() {
+export const getUsers = async (req, res) => {
   try {
     connectMongoDB();
     const users = await Users.find();
@@ -16,16 +14,16 @@ export async function GET() {
       { status: 500 }
     ); /* ou 422 */
   }
-}
+};
 
-export async function POST(req) {
+export const createUser = async (req, res) => {
   connectMongoDB();
   try {
     const { name, email, password } = await req.json();
     const user = await Users.findOne({ email: email });
     console.log(user);
 
-    if (user) {
+    if (user)
       return NextResponse.json(
         {
           message:
@@ -33,14 +31,9 @@ export async function POST(req) {
         },
         { status: 201 }
       );
-    }
-    /*  const hash = await bcryptjs.hash(this.password, 10); //dando 10 saltos */
 
     const User = await Users.create({ name, email, password });
-    console.log(User);
-    /* User.password = undefined; */
-
-    console.log(password);
+    User.password = undefined;
 
     return NextResponse.json(
       { message: "Usuário cadastrado com sucesso" },
@@ -50,9 +43,9 @@ export async function POST(req) {
     console.log(error);
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
-}
+};
 
-export async function DELETE(request) {
+export const deleteUser = async (req, res) => {
   connectMongoDB();
   const id = request.nextUrl.searchParams.get("id");
 
@@ -79,4 +72,31 @@ export async function DELETE(request) {
       { status: 500 }
     );
   }
-}
+};
+
+export const login = async (req, res) => {
+  connectMongoDB();
+  try {
+    const { email, password } = req.body;
+    const user = await Users.findOne({ email }).select("+password");
+    if (!user) {
+      NextResponse.json({ message: "Usuário não encontrado" });
+      return;
+    }
+
+    if (!(await bcrypt.compare(password, user.password))) {
+      return NextResponse.json(
+        { message: "Senha inválida", error },
+        { status: 400 }
+      );
+    }
+    user.password = undefined; // retirando a senha pra não mostrar
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: 86400,
+    }); // gerando o token... 68400 é para expirar em 1 dia
+    return res.json({ user, token });
+  } catch (error) {
+    console.log(error);
+  }
+};
