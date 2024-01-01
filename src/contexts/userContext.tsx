@@ -1,5 +1,11 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type SignInData = {
   email: string;
@@ -7,7 +13,7 @@ type SignInData = {
 };
 
 type UserContextType = {
-  signIn: (data: SignInData) => Promise<void>;
+  signIn: (data: SignInData) => Promise<boolean> | null;
   user: any;
 };
 
@@ -16,6 +22,7 @@ const UserContext = createContext({} as UserContextType);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [dataUser, setDataUser] = useState({});
   async function signIn({ email, password }: SignInData) {
+    let pass = false;
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
@@ -23,11 +30,25 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ email: email, password: password }),
       });
       const { user, token } = await response.json();
+      localStorage.setItem("@musicSlider:user", JSON.stringify(user));
+      localStorage.setItem("@musicSlider:token", JSON.stringify(token));
       setDataUser({ user, token });
+      pass = true;
+      return pass;
     } catch (error) {
       console.log(error);
+      return pass;
     }
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("@musicSlider:token");
+    const user = localStorage.getItem("@musicSlider:user");
+
+    if (token && user) {
+      setDataUser({ token, user: JSON.parse(user) });
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ signIn, user: dataUser }}>

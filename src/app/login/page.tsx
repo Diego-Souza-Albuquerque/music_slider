@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useSession, signIn, signOut } from "next-auth/react";
 import SearchUsers from "@/components/searchUsers";
 import { useState, useContext } from "react";
-import Router from "next/router";
 import { useAuth } from "@/contexts/userContext";
 
 type UserType = {
@@ -21,10 +20,8 @@ export default function Login() {
   /* const { signIn } = useContext(AuthContext); */
   const { register, handleSubmit } = useForm();
   const [newUser, setNewUser] = useState<UserType[]>([]);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
 
   const handleIncludeUsers = (formdata: any) => {
     fetch("/api/users", {
@@ -41,6 +38,14 @@ export default function Login() {
 
   async function handleLogin({ email, password }: any) {
     const data = await signIn({ email: email, password: password });
+    if (!data) {
+      alert("Erro de autentificação");
+      window.location.reload();
+      return;
+    } else {
+      alert("Usuário foi logado");
+      window.location.href = "/";
+    }
   }
 
   const excluirUser = (formdata: any) => {
