@@ -31,7 +31,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       });
       const { user, token } = await response.json();
       localStorage.setItem("@musicSlider:user", JSON.stringify(user));
-      localStorage.setItem("@musicSlider:token", JSON.stringify(token));
+      localStorage.setItem("@musicSlider:token", token);
       setDataUser({ user, token });
       pass = true;
       return pass;
@@ -44,9 +44,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem("@musicSlider:token");
     const user = localStorage.getItem("@musicSlider:user");
+    console.log("Token:", token);
+    console.log("User:", user);
 
     if (token && user) {
-      setDataUser({ token, user: JSON.parse(user) });
+      setDataUser({ token, user /* : JSON.parse(user) */ });
     }
   }, []);
 

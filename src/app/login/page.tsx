@@ -21,8 +21,8 @@ export default function Login() {
   const { register, handleSubmit } = useForm();
   const [newUser, setNewUser] = useState<UserType[]>([]);
 
-  const { signIn } = useAuth();
-
+  const { signIn, user } = useAuth();
+  console.log(user);
   const handleIncludeUsers = (formdata: any) => {
     fetch("/api/users", {
       method: "POST",
