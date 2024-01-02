@@ -14,6 +14,7 @@ type SignInData = {
 
 type UserContextType = {
   signInDefault: (data: SignInData) => Promise<boolean> | null;
+  signOutDefault: () => void;
   user: any;
 };
 
@@ -42,11 +43,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function signOutDefault() {
+    localStorage.removeItem("@musicSlider:token");
+    localStorage.removeItem("@musicSlider:user");
+    setDataUser({});
+    window.location.reload();
+  }
+
   useEffect(() => {
     const token = localStorage.getItem("@musicSlider:token");
     const user = localStorage.getItem("@musicSlider:user");
-    /* console.log("Token:", token);
-    console.log("User:", user); */
 
     if (token && user) {
       if (token === "undefined" && user === "undefined") {
@@ -56,7 +62,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ signInDefault, user: dataUser }}>
+    <UserContext.Provider
+      value={{ signInDefault, signOutDefault, user: dataUser }}
+    >
       {children}
     </UserContext.Provider>
   );

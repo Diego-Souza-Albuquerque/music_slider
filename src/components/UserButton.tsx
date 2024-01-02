@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { LogOut, Settings, User } from "lucide-react";
+import { useAuth } from "@/contexts/userContext";
 
 import {
   DropdownMenu,
@@ -15,7 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function UserButton({ session, user }: any) {
-  console.log(user);
+  const { signOutDefault } = useAuth();
 
   return (
     <>
@@ -102,7 +103,7 @@ export default function UserButton({ session, user }: any) {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <LogOut className="mr-2 h-4 w-4" />
-                <span onClick={() => signOut()}>Log out</span>
+                <span onClick={() => signOutDefault()}>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
