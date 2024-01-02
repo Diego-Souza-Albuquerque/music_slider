@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import SearchUsers from "@/components/searchUsers";
 import { useState, useContext } from "react";
 import { useAuth } from "@/contexts/userContext";
+import { FcGoogle } from "react-icons/fc";
 
 type UserType = {
   _id: string;
@@ -21,7 +22,7 @@ export default function Login() {
   const { register, handleSubmit } = useForm();
   const [newUser, setNewUser] = useState<UserType[]>([]);
 
-  const { signIn, user } = useAuth();
+  const { signInDefault, user } = useAuth();
   console.log(user);
   const handleIncludeUsers = (formdata: any) => {
     fetch("/api/users", {
@@ -37,7 +38,7 @@ export default function Login() {
   };
 
   async function handleLogin({ email, password }: any) {
-    const data = await signIn({ email: email, password: password });
+    const data = await signInDefault({ email: email, password: password });
     if (!data) {
       alert("Erro de autentificação");
       window.location.reload();
@@ -171,10 +172,38 @@ export default function Login() {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Cadastrar
+                    Entrar
                   </button>
                 </div>
               </form>
+
+              <div>
+                <div className="relative mt-10">
+                  <div
+                    className="absolute inset-0 flex items-center"
+                    aria-hidden="true"
+                  >
+                    <div className="w-full border-t border-gray-200" />
+                  </div>
+                  <div className="relative flex justify-center text-sm font-medium leading-6">
+                    <span className="bg-white px-6 text-gray-900">
+                      Entre com
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center justify-center gap-4">
+                  <button
+                    onClick={() => signIn("google")}
+                    className="flex w-52 items-center justify-center gap-3 rounded-md bg-white hover:bg-gray-200 px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D9BF0]"
+                  >
+                    <FcGoogle size={20} />
+                    <span className="text-sm font-semibold text-gray-600 leading-6">
+                      Google
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

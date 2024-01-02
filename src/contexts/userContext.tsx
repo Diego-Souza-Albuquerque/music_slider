@@ -13,7 +13,7 @@ type SignInData = {
 };
 
 type UserContextType = {
-  signIn: (data: SignInData) => Promise<boolean> | null;
+  signInDefault: (data: SignInData) => Promise<boolean> | null;
   user: any;
 };
 
@@ -21,7 +21,7 @@ const UserContext = createContext({} as UserContextType);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [dataUser, setDataUser] = useState({});
-  async function signIn({ email, password }: SignInData) {
+  async function signInDefault({ email, password }: SignInData) {
     let pass = false;
     try {
       const response = await fetch("/api/users/login", {
@@ -30,6 +30,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ email: email, password: password }),
       });
       const { user, token } = await response.json();
+      console.log(user, token);
       localStorage.setItem("@musicSlider:user", JSON.stringify(user));
       localStorage.setItem("@musicSlider:token", token);
       setDataUser({ user, token });
@@ -44,16 +45,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem("@musicSlider:token");
     const user = localStorage.getItem("@musicSlider:user");
-    console.log("Token:", token);
-    console.log("User:", user);
+    /* console.log("Token:", token);
+    console.log("User:", user); */
 
     if (token && user) {
-      setDataUser({ token, user /* : JSON.parse(user) */ });
+      if (token === "undefined" && user === "undefined") {
+        console.log("Ocorreu algum erro na autentificação");
+      } else setDataUser({ token, user: JSON.parse(user) });
     }
   }, []);
 
   return (
-    <UserContext.Provider value={{ signIn, user: dataUser }}>
+    <UserContext.Provider value={{ signInDefault, user: dataUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -1,9 +1,10 @@
 "use client";
 import { TypeAnimation } from "react-type-animation";
+import Link from "next/link";
 
 export default function ButtonStart() {
   return (
-    <a
+    <Link
       href="/slider"
       className="rounded-lg w-full h-10 flex items-center justify-center p-2 border-white border-[1px] bg-transparent hover:bg-white hover:text-black text-xs font-semibold text-white"
     >
@@ -14,6 +15,6 @@ export default function ButtonStart() {
         style={{ width: "full", fontSize: "2em", display: "inline-block" }}
         repeat={Infinity}
       />
-    </a>
+    </Link>
   );
 }

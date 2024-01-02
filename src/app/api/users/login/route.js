@@ -7,6 +7,7 @@ export async function POST(req, res) {
   connectMongoDB();
   try {
     const { email, password } = await req.json();
+    console.log("Entrou no try", email, password);
 
     const user = await Users.findOne({ email }).select("+password");
 

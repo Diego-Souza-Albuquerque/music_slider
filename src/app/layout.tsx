@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/dark-mode-toggle";
 import Providers from "@/components/Providers";
-import SignInButton from "@/components/SignInButton";
+import Header from "@/components/header";
 const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -79,35 +77,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <header className="flex items-center justify-between w-full py-4 px-12 border-b-[0.5px] border-gray-500">
-              <span className="text-2xl font-black cursor-default">
-                MUSIC SLIDER
-              </span>
-
-              <nav className="flex gap-10 items-center">
-                <Link
-                  className="hover:border-b hover:border-black dark:hover:border-white"
-                  href="/"
-                >
-                  Início
-                </Link>
-                <Link
-                  className="hover:border-b hover:border-black dark:hover:border-white"
-                  href="/slider"
-                >
-                  Slider
-                </Link>
-                <Link
-                  className="hover:border-b hover:border-black dark:hover:border-white"
-                  href="/about"
-                >
-                  Sobre
-                </Link>
-
-                <SignInButton />
-                <ModeToggle />
-              </nav>
-            </header>
+            <Header />
 
             {children}
 
