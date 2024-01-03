@@ -47,17 +47,19 @@ export default function Header() {
           </Link>
 
           {autenticate ? (
-            <UserButton session={session} user={user} />
+            <UserButton session={session} />
           ) : (
-            <Link
-              href="/login"
-              className="hover:border-b hover:border-black dark:hover:border-white"
-            >
-              Minha Conta
-            </Link>
+            <div className="flex items-center gap-10">
+              <Link
+                href="/login"
+                className="hover:border-b hover:border-black dark:hover:border-white"
+              >
+                Minha Conta
+              </Link>
+              {/* Tema */}
+              <ModeToggle />
+            </div>
           )}
-          {/* Tema */}
-          <ModeToggle />
         </nav>
       </header>
     </>

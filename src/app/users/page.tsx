@@ -18,16 +18,6 @@ type UserType = {
 export default function Login() {
   const [users, setUsers] = useState<UserType[]>([]);
 
-  const people = [
-    {
-      name: "Lindsay Walton",
-      title: "Front-end Developer",
-      email: "lindsay.walton@example.com",
-      role: "Member",
-    },
-    // More people...
-  ];
-
   const handleFetchUsers = () => {
     fetch("/api/users")
       .then((response) => response.json())
