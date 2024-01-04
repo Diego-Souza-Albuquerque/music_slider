@@ -7,6 +7,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { saveAs } from "file-saver";
 
 type SlideType = {
   id: number;
@@ -18,6 +19,7 @@ export default function Program(props: any) {
   const [slides, setSlides] = useState<SlideType[]>([]);
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [pptxBlob, setPptxBlob] = useState<Blob | null>(null);
   const pptx = new pptxgen();
 
   const createSlide = (letra: string) => {
@@ -47,6 +49,10 @@ export default function Program(props: any) {
     ]);
   };
 
+  const blackBackground = () => {
+    checked ? setChecked(false) : setChecked(true);
+  };
+
   const handleLyricsChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -62,18 +68,48 @@ export default function Program(props: any) {
     setOpen(true);
   };
 
-  const handleGeneratePPTX = () => {
+  const handleGeneratePPTX = async () => {
     const parts = lyrics.split("\n\n");
 
     for (const part of parts) {
       createSlide(part);
     }
 
-    pptx.writeFile({ fileName: "musica.pptx" });
+    // Obtém o conteúdo do PPTX como string
+    const pptxContent = await pptx.write();
+
+    // Converte a string em Blob
+    const pptxBlob = new Blob([pptxContent], {
+      type: "application/octet-stream",
+    });
+
+    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`); // Salva o arquivo na maquina do usuário pelo frontEnd
+
+    sendToBackend(pptxBlob); // Envia o arquivo para o backend
   };
 
-  const blackBackground = () => {
-    checked ? setChecked(false) : setChecked(true);
+  const sendToBackend = async (pptxBlob: Blob) => {
+    if (!pptxBlob) {
+      console.log("O arquivo gerado veio vazio");
+      return;
+    }
+    const fullName = `${encodeURIComponent(props.title)}.pptx`;
+
+    const formData = new FormData();
+    formData.append("file", pptxBlob, fullName);
+    formData.append("title", props.title);
+    formData.append("author", props.author);
+    try {
+      const response = await fetch("http://localhost:4000/api/uploadSlide", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.status === 201) {
+        alert("Arquivo salvo no sistema com sucesso");
+      }
+    } catch (error) {
+      console.error("Erro durante a requisição para o backend", error);
+    }
   };
 
   return (

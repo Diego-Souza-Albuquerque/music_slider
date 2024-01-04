@@ -18,16 +18,25 @@ type UserType = {
 export default function Login() {
   const [users, setUsers] = useState<UserType[]>([]);
 
-  const handleFetchUsers = () => {
-    fetch("/api/users")
-      .then((response) => response.json())
-      .then((data) => setUsers(data.users))
-      .catch((error) => console.error("Erro ao buscar usuários:", error));
-  };
+  async function handleFetchUsers() {
+    try {
+      const response = await fetch(`http://localhost:4000/api/getAllUsers`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {}
+
+    alert("Erro ao buscar usuários:");
+  }
 
   useEffect(() => {
     handleFetchUsers();
   }, []);
+  console.log(users);
 
   /* const excluirUser = (formdata: any) => {
     fetch("/api/users", {
@@ -99,7 +108,7 @@ export default function Login() {
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-800">
+                        {/*  <tbody className="divide-y divide-gray-800">
                           {users?.map((user) => (
                             <tr key={user.email}>
                               <td className="whitespace-nowrap py-4 pl-4 pr-7 text-sm font-medium text-white sm:pl-0">
@@ -132,7 +141,7 @@ export default function Login() {
                               </td>
                             </tr>
                           ))}
-                        </tbody>
+                        </tbody> */}
                       </table>
                     </div>
                   </div>

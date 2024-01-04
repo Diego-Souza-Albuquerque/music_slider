@@ -24,6 +24,8 @@ export default function Slider() {
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const [lyrics, setLyrics] = useState("");
   const [show, setShow] = useState(false);
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleInputChange = (e: any) => {
     setMusicName(e.target.value);
@@ -35,6 +37,31 @@ export default function Slider() {
     )}`;
     window.open(googleSearchURL, "_blank");
   };
+
+  const handleInformations = (title: string, author: string) => {
+    setAuthor(author);
+    setTitle(title);
+  };
+
+  async function handleUpload() {
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("author", author);
+    try {
+      const response = await fetch(`http://localhost:4000/api/upMusic`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formData,
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      alert("Erro ao buscar usuários:");
+    }
+  }
 
   const handleSearch = async () => {
     const searchUrl = createUrlToSearch({ text: musicName });
@@ -182,7 +209,7 @@ ${data.mus[0].text}`);
           </div>
 
           <div className="py-10">
-            <Program letraVagalume={lyrics} />
+            <Program letraVagalume={lyrics} title={title} author={author} />
           </div>
         </div>
       </div>
@@ -247,7 +274,13 @@ ${data.mus[0].text}`);
                             {searchResults.map((song) => (
                               <div
                                 key={song.id}
-                                onClick={() => handleSongSelect(song.id)}
+                                onClick={() => {
+                                  handleSongSelect(song.id);
+                                  handleInformations(
+                                    song.title,
+                                    song.artist_or_author
+                                  );
+                                }}
                                 className="px-2 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
                               >
                                 <dt className="text-gray-500 dark:text-white">

@@ -15,6 +15,7 @@ const nextConfig = {
     ];
   },
   env: {
+    APP_API_URL: process.env.APP_API_URL,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     CX_CONFIG_ID: process.env.CX_CONFIG_ID,
     VAGALUME_API_KEY: process.env.VAGALUME_API_KEY,
