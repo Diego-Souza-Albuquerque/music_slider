@@ -1,4 +1,8 @@
+"use client";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const stats = [
   {
@@ -22,6 +26,28 @@ const team = [
 ];
 
 export default function About() {
+  const [ref, inView] = useInView();
+  const ImagemAnimation = ({ src, alt, delay }: any) => {
+    return (
+      <motion.div
+        initial={{ y: -1500 }}
+        animate={inView ? { y: 0 } : { y: -1500 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay }}
+        className="relative"
+      >
+        <div className="image-container">
+          <motion.img
+            src={src}
+            alt={alt}
+            width={1200}
+            height={1200}
+            className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+          />
+          <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+        </div>
+      </motion.div>
+    );
+  };
   return (
     <main className="isolate">
       {/* Hero section */}
@@ -67,8 +93,9 @@ export default function About() {
             }}
           />
         </div>
+
         <div className="overflow-hidden">
-          <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-20 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-6 lg:px-8">
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
@@ -81,61 +108,49 @@ export default function About() {
                   e aprimorar minhas habilidades de programação.
                 </p>
               </div>
-              <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+              <span className="bg-white h-2 w-20 mt-20 relative top-20"></span>
+
+              <div
+                ref={ref}
+                className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0"
+              >
                 <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                  <div className="relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                      alt=""
-                      width={1200}
-                      height={1200}
-                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                  </div>
+                  <ImagemAnimation
+                    src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                    alt="3"
+                    delay={0.4}
+                  />
                 </div>
                 <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                   <div className="relative">
-                    <Image
+                    <ImagemAnimation
                       src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                      alt=""
-                      width={1200}
-                      height={1200}
-                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      alt="4"
+                      delay={0.6}
                     />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                   <div className="relative">
-                    <Image
+                    <ImagemAnimation
                       src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
-                      alt=""
-                      width={1200}
-                      height={1200}
-                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      alt="1"
+                      delay={0}
                     />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 </div>
                 <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                   <div className="relative">
-                    <Image
+                    <ImagemAnimation
                       src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                      alt=""
-                      width={1200}
-                      height={1200}
-                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      alt="5"
+                      delay={0.8}
                     />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
-                  <div className="relative">
-                    <Image
+                  <div className="relative ">
+                    <ImagemAnimation
                       src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                      alt=""
-                      width={1200}
-                      height={1200}
-                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      alt="2"
+                      delay={0.2}
                     />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 </div>
               </div>
@@ -153,14 +168,14 @@ export default function About() {
           <div className="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row ">
             <div className="lg:w-full lg:max-w-2xl lg:flex-auto">
               <p className="text-xl leading-8 text-gray-600 dark:text-gray-300">
-                A ideia para este sistema surgiu do longo tempo que gastavamos
-                na preparação de slides de músicas da minha igreja.
+                A ideia surgiu devido ao longo tempo que gastavamos na
+                preparação de slides de músicas e de não poder instalar nenhum
+                programa nos computadores da igreja
               </p>
               <p className="text-xl leading-8 text-gray-600 dark:text-gray-300">
-                Consciente das dificuldades enfrentadas e que não poderiamos
-                instalar nenhum programa nos computadores da igreja, decidi
-                criar uma ferramenta online que agilizasse o processo de criação
-                desses slides, possibilitando uma melhor experiência para todos.
+                Consciente dessas dificuldades, decidi criar uma ferramenta
+                online que agilizasse o processo de criação desses slides,
+                possibilitando uma melhor experiência para todos.
               </p>
             </div>
 
@@ -186,14 +201,20 @@ export default function About() {
       </div>
 
       {/* Image section */}
-      <div className="mt-32 sm:mt-12 xl:mx-auto xl:max-w-7xl">
-        <Image
-          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
-          alt=""
-          width={1200}
-          height={1200}
-          className="aspect-[5/2] w-full object-cover xl:rounded-3xl"
-        />
+      <div className="mt-32 sm:mt-12 xl:mx-auto xl:max-w-7xl relative overflow-hidden rounded-2xl">
+        <motion.div
+          initial={{ scale: 1 }}
+          animate={{ scale: 1.2 }}
+          transition={{ duration: 12, repeat: Infinity }}
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+            alt=""
+            width={1200}
+            height={1200}
+            className="aspect-[5/2] w-full object-cover xl:rounded-2xl"
+          />
+        </motion.div>
       </div>
 
       {/* Values section */}
@@ -282,7 +303,7 @@ export default function About() {
         {/* Team section */}
         <div className="mx-auto mb-40 pt-10 max-w-7xl px-6 sm:mt-12 flex items-center">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <div className="flex items-center justify-start gap-4">
+            <div className="flex xl:flex lg:flex-row md:flex-row sm:flex-col flex-col items-center justify-center gap-4">
               <Image
                 className="h-24 w-24 rounded-full"
                 src={
@@ -294,7 +315,8 @@ export default function About() {
               />
               <p className=" text-lg leading-8 text-gray-600 dark:text-gray-300">
                 Olá, meu nome é Diego Albuquerque, sou apaixonado por
-                programação e busco sempre colocar propósito naquilo que eu faço
+                programação e busco sempre encontrar propósito naquilo que eu
+                faço
               </p>
             </div>
           </div>

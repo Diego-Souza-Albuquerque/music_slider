@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/userContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/dark-mode-toggle";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -27,9 +28,14 @@ export default function UserButton({ session }: any) {
   const { signOutDefault, user } = useAuth();
 
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
+  };
+
+  const blackBackground = () => {
+    checked ? setChecked(false) : setChecked(true);
   };
 
   return (
@@ -177,19 +183,44 @@ export default function UserButton({ session }: any) {
                           <h3 className="px-1 font-medium text-gray-900 text-xl dark:text-white ">
                             Preferências do usuário:
                           </h3>
-                          <div className="mt-10 space-y-4">
+                          <div className="mt-10 space-y-5">
                             {/* Tema */}
                             <div className="flex items-center gap-2">
                               <h2>Tema do sistema: </h2>
                               <ModeToggle />
                             </div>
-                            <div className="flex items-center gap-2">
-                              <h2>Cor de fundo dos slides: </h2>
-                              {user.user.preferences.bgBlack.toString() ===
-                              "true"
-                                ? "Preto"
-                                : "Branco"}
-                            </div>
+
+                            <span className="flex w-full items-center justify-start gap-3 text-white">
+                              <div>
+                                <h1>Definição de cores dos slides:</h1>
+                                <span className="flex items-center w-full">
+                                  Inverter Cores:
+                                  <Checkbox
+                                    checked={checked}
+                                    onCheckedChange={blackBackground}
+                                    defaultChecked={false}
+                                    className="ml-2 border-white"
+                                  />
+                                </span>
+                              </div>
+                              <span className="flex flex-col justify-start bg-black px-4 py-2">
+                                <div className="flex gap-2 ">
+                                  <h2>Cor Fundo:</h2>
+                                  {user.user.preferences.bgBlack.toString() ===
+                                  "true"
+                                    ? "Preto"
+                                    : "Branco"}
+                                </div>
+                                <div className="flex gap-2">
+                                  <h2>Cor Texto:</h2>
+                                  {user.user.preferences.bgBlack.toString() ===
+                                  "true"
+                                    ? "Branco"
+                                    : "Preto"}
+                                </div>
+                              </span>
+                            </span>
+
                             <div className="flex items-center gap-2">
                               <h2>Logo nos slides: </h2>
                               {user.user.preferences.logo.toString() === "true"

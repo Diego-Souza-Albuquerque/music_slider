@@ -1,6 +1,5 @@
 "use client";
 import Program from "@/components/program";
-import Text from "@/components/text";
 
 import { useState, Fragment } from "react";
 import { Input } from "@/components/ui/input";
@@ -42,26 +41,6 @@ export default function Slider() {
     setAuthor(author);
     setTitle(title);
   };
-
-  async function handleUpload() {
-    const formData = new FormData();
-
-    formData.append("title", title);
-    formData.append("author", author);
-    try {
-      const response = await fetch(`http://localhost:4000/api/upMusic`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: formData,
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      alert("Erro ao buscar usuários:");
-    }
-  }
 
   const handleSearch = async () => {
     const searchUrl = createUrlToSearch({ text: musicName });
@@ -136,7 +115,7 @@ ${data.mus[0].text}`);
   };
 
   return (
-    <main className="bg-gray-900 h-full sm:h-screen w-full">
+    <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full">
       <div className="relative isolate overflow-hidden">
         <svg
           className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -180,8 +159,8 @@ ${data.mus[0].text}`);
           />
         </div>
 
-        <div className="mx-auto px-12 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-start">
-          <div className="flex flex-col items-center w-1/3 justify-start py-10 gap-6">
+        <div className="mx-auto xl:px-12 lg:px-12 md:px-12 sm:px-6 px-6 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-start">
+          <div className="flex flex-col items-center sm:w-full md:w-full lg:w-[45%] xl:w-[45%] justify-start py-10 gap-6">
             <div className="flex gap-3 w-full">
               <Input
                 type="text"
@@ -205,10 +184,17 @@ ${data.mus[0].text}`);
               </Button>
             </div>
 
-            <Text />
+            <ol className="text-white text-lg px-5 space-y-8 mt-6 w-full list-decimal">
+              <li>Pesquise a música no campo acima</li>
+              <li>Defina o espaço de 1 linha para separar cada slide</li>
+              <li>
+                Clique em pré-visualizar para ver como será a apresentação
+              </li>
+              <li>Clique em criar arquivo</li>
+            </ol>
           </div>
 
-          <div className="py-10">
+          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4">
             <Program letraVagalume={lyrics} title={title} author={author} />
           </div>
         </div>

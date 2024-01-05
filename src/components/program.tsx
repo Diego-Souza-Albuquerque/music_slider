@@ -6,7 +6,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { saveAs } from "file-saver";
 
 type SlideType = {
@@ -47,10 +46,6 @@ export default function Program(props: any) {
       ...prevSlides,
       { id: prevSlides.length, content: letra },
     ]);
-  };
-
-  const blackBackground = () => {
-    checked ? setChecked(false) : setChecked(true);
   };
 
   const handleLyricsChange = (
@@ -123,7 +118,7 @@ export default function Program(props: any) {
             stiffness: 260,
             damping: 50,
           }}
-          className="w-full sm:w-[55vh] h-full relative"
+          className="w-full sm:w-[60vh] h-full relative"
         >
           <Textarea
             onChange={handleLyricsChange}
@@ -143,27 +138,12 @@ export default function Program(props: any) {
               onClick={handleGeneratePPTX}
               variant="outline"
             >
-              Fazer Download
+              Criar arquivo
             </Button>
           </div>
         </motion.div>
       </div>
-      <span className="flex flex-col w-60 items-start justify-start text-white">
-        <h1>Definições de estilo:</h1>
-        <span className="flex flex-col justify-start">
-          <h2>- Fundo: {checked ? "Branco" : "Preto"}</h2>
-          <h2>- Texto: {checked ? "Preto" : "Branco"}</h2>
-        </span>
-        <span className="flex items-center w-full mt-2">
-          Inverter Cores:
-          <Checkbox
-            checked={checked}
-            onCheckedChange={blackBackground}
-            defaultChecked={false}
-            className="ml-2 border-white"
-          />
-        </span>
-      </span>
+
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <div className="fixed inset-0" />

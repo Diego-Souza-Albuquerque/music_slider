@@ -24,10 +24,10 @@ app.get("/", (req: any, res: any) => {
 
 export default function Home() {
   return (
-    <div className="bg-gray-900 h-screen">
+    <div className="bg-gray-900 h-full">
       <main className="flex flex-col">
         {/* Hero section */}
-        <div className="relative isolate overflow-hidden">
+        <div className="relative isolate overflow-hidden xl:h-screen lg:h-screen md:h-full sm:h-full">
           <svg
             className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
             aria-hidden="true"

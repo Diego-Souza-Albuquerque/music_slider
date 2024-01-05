@@ -23,10 +23,17 @@ export default function Header() {
 
   return (
     <>
-      <header className="flex items-center justify-between w-full py-4 px-12 border-b-[0.5px] border-gray-500">
-        <span className="text-2xl font-black cursor-default">MUSIC SLIDER</span>
+      <header className="flex items-center justify-between w-full py-4 xl:px-12 lg:px-12 md:px-12 sm:px-6 px-6 border-b-[0.5px] border-gray-500">
+        <span className="flex items-center text-2xl font-black cursor-default">
+          MUSIC SLIDER
+          {!autenticate && (
+            <span className="pl-1 ">
+              <ModeToggle />
+            </span>
+          )}
+        </span>
 
-        <nav className="flex gap-10 items-center">
+        <nav className="flex gap-4 items-center ">
           <Link
             className="hover:border-b hover:border-black dark:hover:border-white"
             href="/"
@@ -49,16 +56,12 @@ export default function Header() {
           {autenticate ? (
             <UserButton session={session} />
           ) : (
-            <div className="flex items-center gap-10">
-              <Link
-                href="/login"
-                className="hover:border-b hover:border-black dark:hover:border-white"
-              >
-                Minha Conta
-              </Link>
-              {/* Tema */}
-              <ModeToggle />
-            </div>
+            <Link
+              href="/login"
+              className="hover:border-b hover:border-black dark:hover:border-white"
+            >
+              Login
+            </Link>
           )}
         </nav>
       </header>
