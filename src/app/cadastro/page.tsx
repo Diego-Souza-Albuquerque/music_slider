@@ -1,68 +1,51 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useState, useContext } from "react";
-import { useAuth } from "@/contexts/userContext";
+import { signIn } from "next-auth/react";
+import { useState, Fragment } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { Transition } from "@headlessui/react";
+import { HiBadgeCheck } from "react-icons/hi";
+import { XCircleIcon } from "@heroicons/react/20/solid";
+
 import Link from "next/link";
 
-type UserType = {
-  _id: string;
-  name: string;
-  email: string;
-  preferences: {
-    bgBlack: boolean;
-    logo: boolean;
-  };
-};
-
 export default function Login() {
-  /* const { signIn } = useContext(AuthContext); */
   const { register, handleSubmit } = useForm();
-  const [newUser, setNewUser] = useState<UserType[]>([]);
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState(false);
 
-  const { signInDefault, user } = useAuth();
-  console.log(user);
-  const handleIncludeUsers = (formdata: any) => {
-    fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    })
-      .then((response) => response.json())
-      .then((data) => setNewUser(data.user))
-      .catch((error) => console.error("Erro ao cadastrar usuário:", error));
-  };
+  async function handleIncludeUsers(formdata: any) {
+    try {
+      const response = await fetch(`http://localhost:4000/api/createAccount`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formdata),
+      });
 
-  async function handleLogin({ email, password }: any) {
-    const data = await signInDefault({ email: email, password: password });
-    if (!data) {
-      alert("Erro de autentificação");
-      window.location.reload();
-      return;
-    } else {
-      alert("Usuário foi logado");
-      window.location.href = "/";
-    }
+      if (response.status === 201) {
+        setStatus(true);
+      }
+
+      if (response.status === 409) {
+        setMessage("Já existe um usuário com esse email cadastrado");
+      }
+      if (response.status === 500) {
+        setMessage("Ocorreu um erro na hora do cadastro, tente mais tarde");
+      }
+
+      setShow(true);
+      setTimeout(() => {
+        setShow(false);
+        if (response.status === 201) {
+          window.location.href = "/login";
+        }
+      }, 3000);
+    } catch (error) {}
   }
-
-  const excluirUser = (formdata: any) => {
-    fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message);
-      })
-      .catch((error) => console.error("Erro ao cadastrar usuário:", error));
-  };
 
   return (
     <>
@@ -178,6 +161,62 @@ export default function Login() {
               </Link>
             </p>
           </div>
+        </div>
+      </div>
+      {/* Alerta após clicar em cadastrar */}
+      <div
+        aria-live="assertive"
+        className="pointer-events-none fixed z-50 bottom-0 w-full flex items-end px-4 py-6 sm:items-start sm:p-6"
+      >
+        <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+          <Transition
+            show={show}
+            as={Fragment}
+            enter="transform ease-out duration-700 transition"
+            enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+            enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+            leave="transition ease-in duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="p-4">
+                {status ? (
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <HiBadgeCheck
+                        className="h-6 w-6 text-green-600"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                      <p className="text-sm font-medium text-gray-900">
+                        Seu cadastro foi realizado com sucesso
+                      </p>
+                      <p className="mt-1 text-sm text-gray-500">
+                        Você será redirecionado para a página de login
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <XCircleIcon
+                        className="h-6 w-6 text-red-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                      <p className="text-sm font-medium text-gray-900">
+                        Não foi possivel criar seu usuário
+                      </p>
+                      <p className="mt-1 text-sm text-gray-500">{message}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Transition>
         </div>
       </div>
     </>

@@ -33,7 +33,7 @@ export default function Header() {
           )}
         </span>
 
-        <nav className="flex gap-4 items-center ">
+        <nav className="flex xl:gap-10 lg:gap-10 md:gap-10 gap-3 pl-1 items-center ">
           <Link
             className="hover:border-b hover:border-black dark:hover:border-white"
             href="/"

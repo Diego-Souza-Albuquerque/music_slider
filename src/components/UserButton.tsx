@@ -221,12 +221,12 @@ export default function UserButton({ session }: any) {
                               </span>
                             </span>
 
-                            <div className="flex items-center gap-2">
+                            {/*   <div className="flex items-center gap-2">
                               <h2>Logo nos slides: </h2>
                               {user.user.preferences.logo.toString() === "true"
                                 ? "Sim"
                                 : "Não"}
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>

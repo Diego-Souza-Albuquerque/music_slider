@@ -22,12 +22,15 @@ const UserContext = createContext({} as UserContextType);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [dataUser, setDataUser] = useState({});
+
   async function signInDefault({ email, password }: SignInData) {
     let pass = false;
     try {
-      const response = await fetch("/api/users/login", {
+      const response = await fetch(`http://localhost:4000/api/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email: email, password: password }),
       });
       const { user, token } = await response.json();

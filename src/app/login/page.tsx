@@ -24,18 +24,6 @@ export default function Login() {
 
   const { signInDefault, user } = useAuth();
   console.log(user);
-  const handleIncludeUsers = (formdata: any) => {
-    fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    })
-      .then((response) => response.json())
-      .then((data) => setNewUser(data.user))
-      .catch((error) => console.error("Erro ao cadastrar usuário:", error));
-  };
 
   async function handleLogin({ email, password }: any) {
     const data = await signInDefault({ email: email, password: password });
@@ -75,7 +63,7 @@ export default function Login() {
           </div>
 
           <div className="flex flex-col items-center mt-10 mx-auto sm:w-full sm:max-w-[480px]">
-            <div className="bg-white dark:bg-gray-800 px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <div className="bg-white dark:bg-gray-800 px-6 py-12 w-full shadow sm:rounded-lg sm:px-12">
               <form
                 className="space-y-6"
                 action="#"
