@@ -1,33 +1,12 @@
 import ButtonStart from "@/components/buttonStart";
-
-/* const express = require("express");
-const cors = require("cors"); */
-
-require("../../config/database"); //chamando o database onde tem o mongoose
-
-/* const app = express();
-app.use(cors());
-
-app.use(express.json());
-
-app.listen(4000, () => {
-  console.log("Servidor foi iniciado pelo express");
-});
-
-app.get("/", (req: any, res: any) => {
-  res.send(console.log("enviei um get"));
-}); */
-
-//FrontEnd na porta 3000
-//BackEnd (node) com express na porta 4000
-//Banco de dados (MongoDb) na porta 27017
+import About from "@/components/about";
 
 export default function Home() {
   return (
     <div className="bg-gray-900 h-full">
       <main className="flex flex-col">
         {/* Hero section */}
-        <div className="relative isolate overflow-hidden xl:h-screen lg:h-screen md:h-full sm:h-full">
+        <div className="relative isolate overflow-hidden h-full xl:px-48 lg:px-10 md:px-10 sm:px-6 px-6">
           <svg
             className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
             aria-hidden="true"
@@ -69,7 +48,7 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="mx-auto px-6 pb-10 pt-2 lg:pt-10 lg:pb-24 lg:flex justify-center items-start lg:px-6 ">
+          <div className="mx-auto w-full pb-10 pt-2 lg:pt-10 lg:pb-24 flex lg:flex-row flex-col gap-10 justify-center items-start ">
             <div className="mx-auto max-w-3xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
               <div className="mt-24 sm:mt-32 lg:mt-16"></div>
               <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl">
@@ -95,6 +74,7 @@ export default function Home() {
               />
             </div>
           </div>
+          <About />
         </div>
       </main>
     </div>
