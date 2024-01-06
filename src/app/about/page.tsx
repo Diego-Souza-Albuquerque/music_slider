@@ -14,7 +14,7 @@ const stats = [
   },
 ];
 
-export default function aboutOld() {
+export default function AboutOld() {
   const [ref, inView] = useInView();
   const ImagemAnimation = ({ src, alt, delay }: any) => {
     return (
