@@ -105,42 +105,22 @@ export default function About() {
             {/* Imagens descendo */}
             <div className="mt-14 flex gap-8 sm:-mt-44 lg:mt-0">
               <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                <ImagemAnimation
-                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                  alt="3"
-                  delay={0.4}
-                />
+                <ImagemAnimation src="/image1.jpg" alt="3" delay={0.4} />
               </div>
               <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                 <div className="relative">
-                  <ImagemAnimation
-                    src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                    alt="4"
-                    delay={0.6}
-                  />
+                  <ImagemAnimation src="/image10.jpg" alt="4" delay={0.6} />
                 </div>
                 <div ref={ref} className="relative">
-                  <ImagemAnimation
-                    src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
-                    alt="1"
-                    delay={0}
-                  />
+                  <ImagemAnimation src="/image5.jpg" alt="1" delay={0} />
                 </div>
               </div>
               <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                 <div className="relative">
-                  <ImagemAnimation
-                    src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                    alt="5"
-                    delay={0.8}
-                  />
+                  <ImagemAnimation src="/image7.jpg" alt="5" delay={0.8} />
                 </div>
                 <div className="relative ">
-                  <ImagemAnimation
-                    src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                    alt="2"
-                    delay={0.2}
-                  />
+                  <ImagemAnimation src="/image13.jpg" alt="2" delay={0.2} />
                 </div>
               </div>
             </div>
@@ -319,9 +299,7 @@ export default function About() {
             <div className="flex xl:flex lg:flex-row md:flex-row sm:flex-col flex-col items-center justify-center gap-4">
               <Image
                 className="h-24 w-24 rounded-full"
-                src={
-                  "https://media.licdn.com/dms/image/C4D03AQGRbACCLcqumQ/profile-displayphoto-shrink_200_200/0/1636812677000?e=1704326400&v=beta&t=61hKXcyFo-w0v3L1cE5UmAUVwveJFqdA_pycu3Se6W8"
-                }
+                src={"/diego.png"}
                 alt=""
                 width={1600}
                 height={1200}
