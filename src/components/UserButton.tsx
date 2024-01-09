@@ -31,7 +31,6 @@ export default function UserButton({ session }: any) {
   const handleClick = () => {
     setOpen(true);
   };
-  console.log(user.user.adm);
 
   const blackBackground = () => {
     checked ? setChecked(false) : setChecked(true);
