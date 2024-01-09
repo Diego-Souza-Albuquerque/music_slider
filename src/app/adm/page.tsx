@@ -30,7 +30,7 @@ export default function Adm() {
 
   async function handleFetchUsers() {
     try {
-      const response = await fetch(`http://localhost:4000/api/getAllUsers`, {
+      const response = await fetch(`${process.env.APP_API_URL}/getAllUsers`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function Adm() {
 
   async function handleFetchSlides() {
     try {
-      const response = await fetch(`http://localhost:4000/api/getAllSlides`, {
+      const response = await fetch(`${process.env.APP_API_URL}/getAllSlides`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function Adm() {
   async function handleDeleteSlide(_id: string) {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/deleteSlide/${_id}`,
+        `${process.env.APP_API_URL}/deleteSlide/${_id}`,
         {
           method: "DELETE",
           headers: {

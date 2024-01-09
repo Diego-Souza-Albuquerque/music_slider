@@ -25,6 +25,7 @@ const nextConfig = {
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
     MONGODB_URI: process.env.MONGODB_URI,
     JWT_SECRET: process.env.JWT_SECRET,
+    APP_API_URL: process.env.APP_API_URL,
   },
   images: {
     remotePatterns: [

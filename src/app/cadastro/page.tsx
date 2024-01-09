@@ -18,7 +18,7 @@ export default function Login() {
 
   async function handleIncludeUsers(formdata: any) {
     try {
-      const response = await fetch(`http://localhost:4000/api/createAccount`, {
+      const response = await fetch(`${process.env.APP_API_URL}/createAccount`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

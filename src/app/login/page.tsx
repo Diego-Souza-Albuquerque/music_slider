@@ -37,21 +37,6 @@ export default function Login() {
     }
   }
 
-  const excluirUser = (formdata: any) => {
-    fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message);
-      })
-      .catch((error) => console.error("Erro ao cadastrar usuário:", error));
-  };
-
   return (
     <>
       <div className="flex justify-center items-start w-full">

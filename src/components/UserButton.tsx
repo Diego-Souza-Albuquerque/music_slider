@@ -5,14 +5,11 @@ import Image from "next/image";
 import { LogOut, Settings, User } from "lucide-react";
 import { useAuth } from "@/contexts/userContext";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/dark-mode-toggle";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { XCircleIcon } from "@heroicons/react/20/solid";
 
 import {
   DropdownMenu,
@@ -23,6 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export default function UserButton({ session }: any) {
   const { signOutDefault, user } = useAuth();
@@ -33,6 +31,7 @@ export default function UserButton({ session }: any) {
   const handleClick = () => {
     setOpen(true);
   };
+  console.log(user.user.adm);
 
   const blackBackground = () => {
     checked ? setChecked(false) : setChecked(true);
@@ -114,8 +113,18 @@ export default function UserButton({ session }: any) {
 
                 <DropdownMenuItem onClick={handleClick}>
                   <Settings className="mr-2 h-4 w-4" />
-                  <span>Prefências</span>
+                  <span>Prefências de usuário</span>
                 </DropdownMenuItem>
+                {user?.user?.adm ? (
+                  <DropdownMenuItem>
+                    <Link href={"/adm"} className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Configurações Adm</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ) : (
+                  ""
+                )}
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
 

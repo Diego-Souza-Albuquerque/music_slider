@@ -95,7 +95,7 @@ export default function Program(props: any) {
     formData.append("title", props.title);
     formData.append("author", props.author);
     try {
-      const response = await fetch("http://localhost:4000/api/uploadSlide", {
+      const response = await fetch(`${process.env.APP_API_URL}/uploadSlide`, {
         method: "POST",
         body: formData,
       });

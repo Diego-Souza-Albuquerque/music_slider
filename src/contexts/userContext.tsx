@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   async function signInDefault({ email, password }: SignInData) {
     let pass = false;
     try {
-      const response = await fetch(`http://localhost:4000/api/login`, {
+      const response = await fetch(`${process.env.APP_API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
