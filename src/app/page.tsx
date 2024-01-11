@@ -49,11 +49,10 @@ export default function Home() {
             />
           </div>
           <div className="mx-auto w-full pb-10 pt-2 lg:pt-10 lg:pb-24 flex lg:flex-row flex-col gap-10 justify-center items-start ">
-            <div className="mx-auto max-w-3xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
+            <div className="mx-auto w-1/2 flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
               <div className="mt-24 sm:mt-32 lg:mt-16"></div>
               <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl">
-                Transforme suas letras em slides incríveis de forma rápida e
-                prática
+                Transformando suas letras em slides de forma rápida e prática
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
                 Não perca mais tempo criando slides manualmente, o Music Slider

@@ -51,7 +51,7 @@ export default function UserButton({ session }: any) {
                 className="rounded-full cursor-pointer"
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-56 relative right-6">
               <DropdownMenuLabel>{session.user.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
@@ -101,7 +101,7 @@ export default function UserButton({ session }: any) {
                 />
               )}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-56 relative right-6">
               <DropdownMenuLabel>{user.user.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
