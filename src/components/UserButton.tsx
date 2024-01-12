@@ -214,14 +214,14 @@ export default function UserButton({ session }: any) {
                               <span className="flex flex-col justify-start bg-black px-4 py-2">
                                 <div className="flex gap-2 ">
                                   <h2>Cor Fundo:</h2>
-                                  {user.user.preferences.bgBlack.toString() ===
+                                  {user?.user?.preferences?.bgBlack.toString() ===
                                   "true"
                                     ? "Preto"
                                     : "Branco"}
                                 </div>
                                 <div className="flex gap-2">
                                   <h2>Cor Texto:</h2>
-                                  {user.user.preferences.bgBlack.toString() ===
+                                  {user?.user?.preferences?.bgBlack.toString() ===
                                   "true"
                                     ? "Branco"
                                     : "Preto"}

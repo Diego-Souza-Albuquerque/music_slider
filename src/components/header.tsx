@@ -64,12 +64,12 @@ export default function Header() {
           >
             Slider
           </Link>
-          <Link
+          {/*   <Link
             className="hover:border-b hover:border-black dark:hover:border-white"
             href="/about"
           >
             Sobre
-          </Link>
+          </Link> */}
 
           {autenticate ? (
             <UserButton session={session} />
