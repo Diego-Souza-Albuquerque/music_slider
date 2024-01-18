@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const stats = [
   {
@@ -16,6 +17,23 @@ const stats = [
 
 export default function About() {
   const [ref, inView] = useInView();
+
+  async function handleStart() {
+    try {
+      const response = await fetch(`${process.env.APP_API_URL}/start`, {
+        method: "GET",
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    console.log("Chamando o backend...");
+    handleStart();
+  }, []);
+
   const ImagemAnimation = ({ src, alt, delay }: any) => {
     return (
       <motion.div
@@ -90,11 +108,11 @@ export default function About() {
             <div className="w-full max-w-3xl">
               <h1
                 ref={ref}
-                className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
+                className="text-4xl font-bold tracking-tight text-white sm:text-6xl"
               >
                 Facilitando a forma de fazer slides de música
               </h1>
-              <p className="relative mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 sm:max-w-md lg:max-w-none">
+              <p className="relative mt-6 text-lg leading-8 text-gray-300 sm:max-w-md lg:max-w-none">
                 Bem-vindo ao Music Slider, a solução que nasceu da necessidade
                 de simplificar a criação de slides de músicas na minha igreja,
                 ao mesmo tempo, me proporcionou uma oportunidade para aprender e
@@ -129,20 +147,19 @@ export default function About() {
       </div>
 
       {/* Texto 2  */}
-
       <div className="mx-auto flex justify-between gap-20 lg:mx-0 w-full">
         <div className="flex flex-col items-start">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Inspiração
           </h2>
 
           <div className="lg:w-full lg:max-w-4xl lg:flex-auto mt-2">
-            <p className="text-xl leading-8 text-gray-600 dark:text-gray-300">
+            <p className="text-lg leading-8 text-gray-300">
               A ideia surgiu devido ao longo tempo que gastavamos na preparação
               de slides de músicas e de não poder instalar nenhum programa nos
               computadores da igreja
             </p>
-            <p className="text-xl leading-8 text-gray-600 dark:text-gray-300 pt-5">
+            <p className="text-lg leading-8 text-gray-300 pt-5">
               Consciente dessas dificuldades, decidi criar uma ferramenta online
               que agilizasse o processo de criação desses slides, possibilitando
               uma melhor experiência para todos.
@@ -153,10 +170,10 @@ export default function About() {
         <dl className="w-64 space-y-8 xl:w-80 flex flex-col justify-between">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-col-reverse gap-y-4">
-              <dt className="text-base leading-7 text-gray-600 dark:text-gray-300 -mt-3">
+              <dt className="text-base leading-7 text-gray-300 -mt-3">
                 {stat.label}
               </dt>
-              <dd className="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              <dd className="text-4xl font-semibold tracking-tight text-white">
                 {stat.value}
               </dd>
             </div>
@@ -183,112 +200,136 @@ export default function About() {
 
       {/* Tecnologias */}
       <div className="mx-auto max-w-7 pt-28 w-full px-6 flex flex-col items-center">
-        <h2 className="text-center text-xl font-semibold leading-8 text-black dark:text-white">
+        <h2 className="text-center text-xl font-semibold leading-8 text-white">
           Tecnologias usadas no projeto:
         </h2>
-        <div className="mx-auto mt-8 w-full flex items-center gap-x-8 gap-y-10 sm:gap-x-20 max-w-5xl  lg:mx-0 justify-center">
+        <div className="mx-auto mt-8 w-full flex flex-wrap items-center gap-x-8 gap-y-4 sm:gap-x-20 lg:mx-0 justify-center">
           <span className="flex gap-2 items-center justify-center">
             <Image
-              className="max-h-[44px] w-full object-contain dark:invert"
+              className="max-h-[44px] w-full object-contain invert"
               src="/next.webp"
-              alt="Transistor"
+              alt="Icone NEXT.JS"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               NEXT.JS
             </h1>
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               14
             </h1>
           </span>
           <span className="flex gap-2 items-center justify-center">
             <Image
-              className="max-h-[38px] w-full object-contain dark:invert"
+              className="max-h-[38px] w-full object-contain invert"
               src="/ts.png"
-              alt="Reform"
+              alt="Icone TYPESCRIPT"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               TYPESCRIPT
             </h1>
           </span>
 
           <span className="flex gap-2 items-center justify-center">
             <Image
-              className="max-h-[42px] w-full object-contain dark:invert"
+              className="max-h-[42px] w-full object-contain invert"
               src="/react.png"
-              alt="Reform"
+              alt="Icone REACT"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               REACT
             </h1>
           </span>
 
           <span className="flex gap-2 items-center justify-center">
             <Image
-              className="max-h-[42px] w-full object-contain dark:invert"
+              className="max-h-[42px] w-full object-contain invert"
               src="/tailwind.png"
-              alt="Reform"
+              alt="Icone TAILWIND"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               TAILWIND
             </h1>
           </span>
 
           <span className="flex gap-3 items-center justify-center ">
             <Image
-              className="max-h-[30px] w-full object-contain dark:invert"
+              className="max-h-[30px] w-full object-contain invert"
               src="/framerMotion.png"
-              alt="Reform"
+              alt="Icone FRAMER MOTION"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative whitespace-nowrap">
+            <h1 className="text-white text-xl font-semibold relative whitespace-nowrap">
               FRAMER MOTION
             </h1>
           </span>
 
           <span className="flex gap-2 items-center justify-center ">
             <Image
-              className="max-h-[42px] w-full object-contain dark:invert"
+              className="max-h-[42px] w-full object-contain invert"
               src="/node.png"
-              alt="Reform"
+              alt="Icone NODEJS"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full">
+            <h1 className="text-white text-xl font-semibold relative w-full">
               NODEJS
             </h1>
           </span>
 
           <span className="flex gap-0 items-center justify-center bg-transparent">
             <Image
-              className="max-h-[70px] w-full object-contain dark:invert"
+              className="max-h-[70px] w-full object-contain invert"
               src="/aws.png"
-              alt="Reform"
+              alt="Icone AWS S3"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full whitespace-nowrap">
+            <h1 className="text-white text-xl font-semibold relative w-full whitespace-nowrap">
               AWS S3
             </h1>
           </span>
           <span className="flex gap-2 items-center justify-center bg-transparent">
             <Image
-              className="max-h-[40px] w-full object-contain dark:invert"
+              className="max-h-[40px] w-full object-contain invert"
               src="/mongodb.png"
-              alt="Reform"
+              alt="Icone MONGO DB"
               width={158}
               height={48}
             />
-            <h1 className="text-black dark:text-white text-xl font-semibold relative w-full whitespace-nowrap">
+            <h1 className="text-white text-xl font-semibold relative w-full whitespace-nowrap">
               MONGO DB
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center bg-transparent">
+            <Image
+              className="max-h-[50px] w-full object-contain invert"
+              src="/render.png"
+              alt="Icone RENDER"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-white text-xl font-semibold relative w-full whitespace-nowrap">
+              RENDER
+            </h1>
+          </span>
+          <span className="flex gap-2 items-center justify-center bg-transparent">
+            <Image
+              className="max-h-[35px] w-full object-contain invert"
+              src="/versel.png"
+              alt="Icone VERSEL"
+              width={158}
+              height={48}
+            />
+            <h1 className="text-white text-xl font-semibold relative w-full whitespace-nowrap">
+              VERSEL
             </h1>
           </span>
         </div>
@@ -304,7 +345,7 @@ export default function About() {
                 width={1600}
                 height={1200}
               />
-              <p className=" text-lg leading-8 text-gray-600 dark:text-gray-300">
+              <p className=" text-lg leading-8 text-gray-300">
                 Olá, meu nome é Diego Albuquerque, sou apaixonado por
                 programação e busco sempre encontrar propósito naquilo que eu
                 faço
