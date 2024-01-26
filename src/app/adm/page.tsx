@@ -81,6 +81,8 @@ export default function Adm() {
     handleFetchSlides();
   }, []);
 
+  console.log(slides);
+
   return (
     <>
       {/* Usuários do sistema */}

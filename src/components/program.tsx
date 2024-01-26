@@ -7,6 +7,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
+import { useAuth } from "@/contexts/userContext";
 
 type SlideType = {
   id: number;
@@ -20,6 +21,7 @@ export default function Program(props: any) {
   const [checked, setChecked] = useState(false);
   const [pptxBlob, setPptxBlob] = useState<Blob | null>(null);
   const pptx = new pptxgen();
+  const { user } = useAuth();
 
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
@@ -94,6 +96,8 @@ export default function Program(props: any) {
     formData.append("file", pptxBlob, fullName);
     formData.append("title", props.title);
     formData.append("author", props.author);
+    formData.append("userId", user.user._id);
+    formData.append("userName", user.user.name);
     try {
       const response = await fetch(`${process.env.APP_API_URL}/uploadSlide`, {
         method: "POST",
