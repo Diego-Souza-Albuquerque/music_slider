@@ -132,7 +132,7 @@ export default function Program(props: any) {
         body: formData,
       });
       if (response.status === 201) {
-        alert("Arquivo salvo no sistema com sucesso");
+        alert("Arquivo também foi salvo no servidor");
       }
     } catch (error) {
       console.error("Erro durante a requisição para o backend", error);
