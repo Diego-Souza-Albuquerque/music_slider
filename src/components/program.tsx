@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
 import { useAuth } from "@/contexts/userContext";
+import uploadToS3 from "./send-to-s3";
 
 type SlideType = {
   id: number;
@@ -22,6 +23,7 @@ export default function Program(props: any) {
   const [pptxBlob, setPptxBlob] = useState<Blob | null>(null);
   const pptx = new pptxgen();
   const { user } = useAuth();
+
 
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
@@ -80,10 +82,36 @@ export default function Program(props: any) {
       type: "application/octet-stream",
     });
 
-    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`); // Salva o arquivo na maquina do usuário pelo frontEnd
+    // Salva o arquivo na maquina do usuário pelo frontEnd:
+    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`); 
 
-    sendToBackend(pptxBlob); // Envia o arquivo para o backend
+    // Salvando no servidor (mongo + s3):
+    const s3Url = await uploadToS3(pptxBlob, props);
+    if(s3Url){sendToMongo(s3Url)}
+
   };
+  
+  const sendToMongo = async (s3Url: string | undefined) => {     
+    const data = {
+      title: props?.title,
+      author: props?.author,
+      url: s3Url
+    };
+    try {
+      const response = await fetch(`/api/createSlide`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 201) {
+        alert("Arquivo salvo no sistema com sucesso");
+      }
+    } catch (error) {
+      console.error("Erro durante a requisição para o backend", error);
+    }
+  };  
 
   const sendToBackend = async (pptxBlob: Blob) => {
     if (!pptxBlob) {
