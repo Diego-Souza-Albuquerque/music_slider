@@ -83,15 +83,15 @@ export default function Program(props: any) {
     });
 
     // Salva o arquivo na maquina do usuário pelo frontEnd:
-    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`); 
+    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`);
 
     // Salvando no servidor (mongo + s3):
     const s3Url = await uploadToS3(pptxBlob, props);
-    if(s3Url){sendToMongo(s3Url)}
+    if (s3Url) { sendToMongo(s3Url) }
 
   };
-  
-  const sendToMongo = async (s3Url: string | undefined) => {     
+
+  const sendToMongo = async (s3Url: string | undefined) => {
     const data = {
       title: props?.title,
       author: props?.author,
@@ -107,32 +107,6 @@ export default function Program(props: any) {
       });
       if (response.status === 201) {
         alert("Arquivo salvo no sistema com sucesso");
-      }
-    } catch (error) {
-      console.error("Erro durante a requisição para o backend", error);
-    }
-  };  
-
-  const sendToBackend = async (pptxBlob: Blob) => {
-    if (!pptxBlob) {
-      console.log("O arquivo gerado veio vazio");
-      return;
-    }
-    const fullName = `${encodeURIComponent(props.title)}.pptx`;
-
-    const formData = new FormData();
-    formData.append("file", pptxBlob, fullName);
-    formData.append("title", props.title);
-    formData.append("author", props.author);
-    formData.append("userId", user.user._id);
-    formData.append("userName", user.user.name);
-    try {
-      const response = await fetch(`${process.env.APP_API_URL}/uploadSlide`, {
-        method: "POST",
-        body: formData,
-      });
-      if (response.status === 201) {
-        alert("Arquivo também foi salvo no servidor");
       }
     } catch (error) {
       console.error("Erro durante a requisição para o backend", error);

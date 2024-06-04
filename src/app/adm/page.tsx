@@ -38,7 +38,7 @@ export default function Adm() {
       });
       const data = await response.json();
       setUsers(data);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async function handleFetchSlides() {
@@ -51,7 +51,7 @@ export default function Adm() {
       });
       const data = await response.json();
       setSlides(data);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async function handleDeleteSlide(_id: string) {
@@ -73,7 +73,7 @@ export default function Adm() {
       setTimeout(() => {
         setShow(false);
       }, 2500);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   useEffect(() => {

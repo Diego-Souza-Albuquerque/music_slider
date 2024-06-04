@@ -1,7 +1,7 @@
 "use client";
 import Program from "@/components/program";
 
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -10,11 +10,19 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
 import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Song {
   id: string;
   title: string;
   artist_or_author: string;
+}
+
+interface SlideDoc {
+  id: string;
+  title: string;
+  author: string;
+  url: string;
 }
 
 export default function Slider() {
@@ -25,6 +33,7 @@ export default function Slider() {
   const [show, setShow] = useState(false);
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
+  const [docs, setDocs] = useState<SlideDoc[]>([]);
 
   const handleInputChange = (e: any) => {
     setMusicName(e.target.value);
@@ -40,6 +49,18 @@ export default function Slider() {
   const handleInformations = (title: string, author: string) => {
     setAuthor(author);
     setTitle(title);
+  };
+
+  const handleAuthorChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setAuthor(event.target.value);
+  };
+
+  const handleTitleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setTitle(event.target.value);
   };
 
   const handleSearch = async () => {
@@ -88,6 +109,28 @@ export default function Slider() {
     }
   };
 
+  const getSpecificSlide = async (name: string) => {
+    console.log(name)
+    try {
+      const response = await fetch(`/api/getSpecificSlide?search=${encodeURIComponent(name)}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      const data = await response.json();
+      setDocs(data)
+    } catch (error) {
+      setShow(true);
+      setTimeout(() => {
+        setShow(false);
+        searchInternet();
+      }, 2500);
+      console.error("Erro na pesquisa:", error);
+    }
+  };
+
   const handleSongSelect = async (id: string | null) => {
     const songUrl = createUrlToGetById(id);
 
@@ -113,6 +156,30 @@ ${data.mus[0].text}`);
       console.error("Erro ao obter a música:", error);
     }
   };
+
+  /*   const getAllSlides = async () => {
+      try {
+        const response = await fetch('/api/getAllSliders', {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+    
+        if (!response.ok) {
+          throw new Error('Erro na resposta do servidor');
+        }
+    
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Erro durante a requisição para o backend", error);
+      }
+    };
+    
+    useEffect(() => {
+      getAllSlides()
+    }, []); */
 
   return (
     <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full pt-10">
@@ -171,13 +238,17 @@ ${data.mus[0].text}`);
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     handleSearch();
+                    getSpecificSlide(musicName)
                   }
                 }}
               />
 
               <Button
                 className="h-10 w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
-                onClick={handleSearch}
+                onClick={() => {
+                  handleSearch()
+                  getSpecificSlide(musicName)
+                }}
                 variant="outline"
               >
                 Pesquisar
@@ -187,15 +258,30 @@ ${data.mus[0].text}`);
             <ol className="text-white text-lg px-5 space-y-8 mt-6 w-full list-decimal">
               <li>Pesquise a música no campo acima</li>
               <li>Defina o espaço de 1 linha para separar cada slide</li>
-              <li>
-                Clique em pré-visualizar para ver como será a apresentação
-              </li>
               <li>Clique em criar arquivo</li>
             </ol>
           </div>
 
-          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4">
+          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4 flex gap-4">
             <Program letraVagalume={lyrics} title={title} author={author} />
+            <div className="flex gap-2 w-full">
+              <div className="w-full flex flex-col">
+                <span className="w-full">Título da música:</span>
+                <Textarea
+                  onChange={handleTitleChange}
+                  defaultValue={title}
+                  className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
+                />
+              </div>
+              <div className="w-full flex flex-col">
+                <span className="w-full">Autor:</span>
+                <Textarea
+                  onChange={handleAuthorChange}
+                  defaultValue={author}
+                  className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -210,7 +296,7 @@ ${data.mus[0].text}`);
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-hidden">
@@ -247,48 +333,74 @@ ${data.mus[0].text}`);
                         </button>
                       </div>
                     </Transition.Child>
-                    <div className="h-full overflow-y-auto bg-white dark:bg-gray-900 p-8">
-                      <div className="space-y-6 pb-16 ">
-                        <div>
-                          <h3 className="px-1 font-medium text-gray-900 text-xl dark:text-white">
-                            Escolha alguma das opções abaixo:
+                    <div className="h-full overflow-y-auto bg-white dark:bg-gray-900 px-8 pt-20 pb-10">
+                      <div className="flex flex-col">
+                        <div className="flex gap-2 items-center justify-center my-2">
+                          <h3 className="px-1 font-medium text-center text-gray-900 text-xl dark:text-white">
+                            Escolha uma opção de letra abaixo ou
                           </h3>
-                          <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200 border-[1px]">
-                            <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-1">
-                              <h1>Título da música</h1> <h1>Autor</h1>
-                            </div>
-                            {searchResults.map((song) => (
-                              <div
-                                key={song.id}
-                                onClick={() => {
-                                  handleSongSelect(song.id);
-                                  handleInformations(
-                                    song.title,
-                                    song.artist_or_author
-                                  );
-                                }}
-                                className="px-2 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
-                              >
-                                <dt className="text-gray-500 dark:text-white">
-                                  {song.title.replace(" - VAGALUME", "")}
-                                </dt>
-                                <dd className="text-gray-900 dark:text-white">
-                                  {song.artist_or_author}
-                                </dd>
-                              </div>
-                            ))}
-                          </dl>
-                        </div>
-
-                        <div className="flex items-center justify-center">
                           <Button
-                            className="h-full w-60 text-black dark:text-white dark:hover:text-black p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-gray-100 hover:text-black text-base font-semibold "
+                            className="h-full w-fit text-black dark:text-white dark:hover:text-black px-4 py-1 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-gray-100 hover:text-black text-base font-semibold "
                             onClick={searchInternet}
                             variant="outline"
                           >
                             Pesquisar na internet
                           </Button>
                         </div>
+
+                        <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200 border-[1px]">
+                          <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-3">
+                            <h1>Título da música</h1> <h1>Autor</h1>
+                          </div>
+                          {searchResults.map((song) => (
+                            <div
+                              key={song.id}
+                              onClick={() => {
+                                handleSongSelect(song.id);
+                                handleInformations(
+                                  song.title,
+                                  song.artist_or_author
+                                );
+                              }}
+                              className="px-3 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
+                            >
+                              <dt className="text-gray-500 dark:text-white">
+                                {song.title.replace(" - VAGALUME", "")}
+                              </dt>
+                              <dd className="text-gray-900 dark:text-white">
+                                {song.artist_or_author}
+                              </dd>
+                            </div>
+                          ))}
+                        </dl>
+
+                        {docs.length > 0 && (
+                          <div>
+                            <h3 className="px-1 font-medium text-center text-gray-900 text-xl dark:text-white mt-4 mb-2">
+                              Slides já criados disponíveis para download:
+                            </h3>
+
+                            <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200 border-[1px]">
+                              <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-3">
+                                <h1>Título da música</h1> <h1>Autor</h1>
+                              </div>
+                              {docs?.map((doc) => (
+                                <a
+                                  key={doc.id}
+                                  href={`${doc.url}`}
+                                  className="px-3 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
+                                >
+                                  <dt className="text-gray-500 dark:text-white">
+                                    {doc.title}
+                                  </dt>
+                                  <dd className="text-gray-900 dark:text-white">
+                                    {doc.author}
+                                  </dd>
+                                </a>
+                              ))}
+                            </dl>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Dialog.Panel>
@@ -337,6 +449,6 @@ ${data.mus[0].text}`);
           </Transition>
         </div>
       </div>
-    </main>
+    </main >
   );
 }
