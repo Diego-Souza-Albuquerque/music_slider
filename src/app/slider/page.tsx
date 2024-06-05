@@ -266,7 +266,7 @@ ${data.mus[0].text}`);
             <Program letraVagalume={lyrics} title={title} author={author} />
             <div className="flex gap-2 w-full">
               <div className="w-full flex flex-col">
-                <span className="w-full">Título da música:</span>
+                <span className="w-full text-white">Título da música:</span>
                 <Textarea
                   onChange={handleTitleChange}
                   defaultValue={title}
@@ -274,7 +274,7 @@ ${data.mus[0].text}`);
                 />
               </div>
               <div className="w-full flex flex-col">
-                <span className="w-full">Autor:</span>
+                <span className="w-full text-white">Autor:</span>
                 <Textarea
                   onChange={handleAuthorChange}
                   defaultValue={author}
@@ -311,7 +311,7 @@ ${data.mus[0].text}`);
                   leaveFrom="translate-x-0"
                   leaveTo="translate-x-full"
                 >
-                  <Dialog.Panel className="pointer-events-auto relative w-[85vh]">
+                  <Dialog.Panel className="pointer-events-auto relative w-full">
                     <Transition.Child
                       as={Fragment}
                       enter="ease-in-out duration-500"
