@@ -6,7 +6,7 @@ export default function Home() {
     <div className="bg-gray-900 h-full">
       <main className="flex flex-col">
         {/* Hero section */}
-        <div className="relative isolate overflow-hidden h-full xl:px-48 lg:px-10 md:px-10 sm:px-6 px-6">
+        <div className="relative isolate overflow-hidden h-full xl:px-[10%] lg:px-10 md:px-10 sm:px-6 p-4">
           <svg
             className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
             aria-hidden="true"
@@ -48,22 +48,22 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="mx-auto w-full pb-10 pt-2 lg:pt-10 lg:pb-24 flex lg:flex-row flex-col gap-10 justify-center items-start ">
-            <div className="mx-auto w-1/2 flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-              <div className="mt-24 sm:mt-32 lg:mt-16"></div>
-              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl">
+          <div className="mx-auto w-full pb-10 pt-28 lg:pb-24 flex lg:flex-row flex-col gap-4 justify-center items-start ">
+            <div className="mx-auto lg:w-[52%] w-full flex flex-col justify-center lg:items-start items-center lg:mx-0">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl lg:text-start text-center  px-2">
                 Transformando suas letras em slides de forma rápida e prática
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
+              <p className="mt-6 text-lg leading-8 text-gray-300 lg:text-start text-center px-4">
                 Não perca mais tempo criando slides manualmente, o Music Slider
                 é a solução para quem deseja criar slides de música de forma
                 prática e rápida, online e gratuita.
               </p>
-              <div className="mt-10 flex items-center gap-x-6  w-72">
+              <div className="mt-10 flex items-center gap-x-6 w-72 ml-3.5">
                 <ButtonStart />
               </div>
             </div>
-            <div className="mx-auto max-w-[850px] mt-12 sm:mt-28 ml-0 sm:ml-0 lg:mr-0 ">
+
+            <div className="mx-auto w-1/2 ml-0 sm:ml-0 lg:mr-0 hidden lg:block">
               <video
                 src="/show.mp4"
                 autoPlay
@@ -72,6 +72,7 @@ export default function Home() {
                 className="w-full rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
               />
             </div>
+
           </div>
           <About />
         </div>

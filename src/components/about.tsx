@@ -37,8 +37,8 @@ export default function About() {
   const ImagemAnimation = ({ src, alt, delay }: any) => {
     return (
       <motion.div
-        initial={{ y: -1500 }}
-        animate={inView ? { y: 0 } : { y: -1500 }}
+        initial={{ y: -1800 }}
+        animate={inView ? { y: 0 } : { y: -1800 }}
         transition={{ duration: 0.8, ease: "easeOut", delay }}
         className="relative"
       >
@@ -103,16 +103,16 @@ export default function About() {
 
         {/* Texto 1 */}
 
-        <div className="mx-auto w-full pb-32 pt-36 sm:pt-6 ">
-          <div className="mx-auto flex justify-between gap-10 items-center">
+        <div className="mx-auto w-full pb-32 pt-36">
+          <div className="mx-auto flex justify-center gap-10 items-center">
             <div className="w-full max-w-3xl">
               <h1
                 ref={ref}
-                className="text-4xl font-bold tracking-tight text-white sm:text-6xl"
+                className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-start text-center"
               >
                 Facilitando a forma de fazer slides de música
               </h1>
-              <p className="relative mt-6 text-lg leading-8 text-gray-300 sm:max-w-md lg:max-w-none">
+              <p className="mt-6 text-lg leading-8 text-gray-300 lg:text-start text-center">
                 Bem-vindo ao Music Slider, a solução que nasceu da necessidade
                 de simplificar a criação de slides de músicas na minha igreja,
                 ao mesmo tempo, me proporcionou uma oportunidade para aprender e
@@ -121,7 +121,7 @@ export default function About() {
             </div>
 
             {/* Imagens descendo */}
-            <div className="mt-14 flex gap-8 sm:-mt-44 lg:mt-0">
+            <div className="mt-28 lg:flex hidden gap-8">
               <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                 <ImagemAnimation src="/image1.jpg" alt="3" delay={0.4} />
               </div>
@@ -147,19 +147,19 @@ export default function About() {
       </div>
 
       {/* Texto 2  */}
-      <div className="mx-auto flex justify-between gap-20 lg:mx-0 w-full">
-        <div className="flex flex-col items-start">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+      <div className="mx-auto flex lg:flex-row flex-col justify-between gap-20 lg:mx-0 w-full">
+        <div className="flex flex-col lg:items-start items-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white  ">
             Inspiração
           </h2>
 
           <div className="lg:w-full lg:max-w-4xl lg:flex-auto mt-2">
-            <p className="text-lg leading-8 text-gray-300">
+            <p className="text-lg leading-8 text-gray-300 lg:text-start text-center">
               A ideia surgiu devido ao longo tempo que gastavamos na preparação
               de slides de músicas e de não poder instalar nenhum programa nos
               computadores da igreja
             </p>
-            <p className="text-lg leading-8 text-gray-300 pt-5">
+            <p className="text-lg leading-8 text-gray-300 pt-5 lg:text-start text-center">
               Consciente dessas dificuldades, decidi criar uma ferramenta online
               que agilizasse o processo de criação desses slides, possibilitando
               uma melhor experiência para todos.
@@ -167,7 +167,7 @@ export default function About() {
           </div>
         </div>
 
-        <dl className="w-64 space-y-8 xl:w-80 flex flex-col justify-between">
+        <dl className="w-full space-y-8 lg:w-80 flex flex-col justify-between lg:text-start text-center">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-col-reverse gap-y-4">
               <dt className="text-base leading-7 text-gray-300 -mt-3">
@@ -182,7 +182,7 @@ export default function About() {
       </div>
 
       {/* Imagem grande */}
-      <div className="mt-32 sm:mt-12  xl:mx-auto relative overflow-hidden rounded-2xl">
+      <div className="mt-20 xl:mx-auto relative overflow-hidden rounded-2xl lg:mx-0 -mx-28">
         <motion.div
           initial={{ scale: 1 }}
           animate={{ scale: 1.2 }}
@@ -199,11 +199,11 @@ export default function About() {
       </div>
 
       {/* Tecnologias */}
-      <div className="mx-auto max-w-7 pt-28 w-full px-6 flex flex-col items-center">
-        <h2 className="text-center text-xl font-semibold leading-8 text-white">
+      <div className="mx-auto max-w-7 pt-24 w-full px-6 flex flex-col items-center">
+        <h2 className="text-center text-3xl sm:text-4xl font-semibold leading-8 text-white">
           Tecnologias usadas no projeto:
         </h2>
-        <div className="mx-auto mt-8 w-full flex flex-wrap items-center gap-x-8 gap-y-4 sm:gap-x-20 lg:mx-0 justify-center">
+        <div className="mx-auto mt-8 w-full flex flex-wrap items-center gap-x-8 gap-y-8 sm:gap-x-20 lg:mx-0 justify-center">
           <span className="flex gap-2 items-center justify-center">
             <Image
               className="max-h-[44px] w-full object-contain invert"
@@ -296,6 +296,7 @@ export default function About() {
               AWS S3
             </h1>
           </span>
+
           <span className="flex gap-2 items-center justify-center bg-transparent">
             <Image
               className="max-h-[40px] w-full object-contain invert"
@@ -308,6 +309,7 @@ export default function About() {
               MONGO DB
             </h1>
           </span>
+
           <span className="flex gap-2 items-center justify-center bg-transparent">
             <Image
               className="max-h-[50px] w-full object-contain invert"
@@ -320,6 +322,7 @@ export default function About() {
               RENDER
             </h1>
           </span>
+          
           <span className="flex gap-2 items-center justify-center bg-transparent">
             <Image
               className="max-h-[35px] w-full object-contain invert"
@@ -345,7 +348,7 @@ export default function About() {
                 width={1600}
                 height={1200}
               />
-              <p className=" text-lg leading-8 text-gray-300">
+              <p className=" text-lg leading-8 text-gray-300 text-center lg:text-start">
                 Olá, meu nome é Diego Albuquerque, sou apaixonado por
                 programação e busco sempre encontrar propósito naquilo que eu
                 faço

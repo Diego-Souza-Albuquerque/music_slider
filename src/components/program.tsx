@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import pptxgen from "pptxgenjs";
 import { motion } from "framer-motion";
 import { Dialog, Transition } from "@headlessui/react";
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
 import { useAuth } from "@/contexts/userContext";
 import uploadToS3 from "./send-to-s3";
+import { FaCheckCircle } from "react-icons/fa";
+
 
 type SlideType = {
   id: number;
@@ -21,9 +23,11 @@ export default function Program(props: any) {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [pptxBlob, setPptxBlob] = useState<Blob | null>(null);
+  const [author, setAuthor] = useState(props?.authorAndTitle ? props.authorAndTitle[0] : '');
+  const [title, setTitle] = useState(props?.authorAndTitle ? props.authorAndTitle[1] : '');
+  const [create, setCreate] = useState(false)
   const pptx = new pptxgen();
   const { user } = useAuth();
-
 
   const createSlide = (letra: string) => {
     const slide = pptx.addSlide();
@@ -58,6 +62,18 @@ export default function Program(props: any) {
     setLyrics(event.target.value);
   };
 
+  const handleAuthorChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setAuthor(event.target.value);
+  };
+
+  const handleTitleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setTitle(event.target.value);
+  };
+
   const handlePreview = () => {
     const parts = lyrics.split("\n\n");
 
@@ -68,6 +84,7 @@ export default function Program(props: any) {
   };
 
   const handleGeneratePPTX = async () => {
+    setCreate(true)
     const parts = lyrics.split("\n\n");
 
     for (const part of parts) {
@@ -83,18 +100,18 @@ export default function Program(props: any) {
     });
 
     // Salva o arquivo na maquina do usuário pelo frontEnd:
-    saveAs(pptxBlob, `${props.title} - ${props.author}.pptx`);
+    saveAs(pptxBlob, `${props?.authorAndTitle[1]} - ${props?.authorAndTitle[0]}.pptx`);
 
     // Salvando no servidor (mongo + s3):
-    const s3Url = await uploadToS3(pptxBlob, props);
+    const s3Url = await uploadToS3(pptxBlob, { title, author });
     if (s3Url) { sendToMongo(s3Url) }
 
   };
 
   const sendToMongo = async (s3Url: string | undefined) => {
     const data = {
-      title: props?.title,
-      author: props?.author,
+      title: props?.authorAndTitle[1],
+      author: props?.authorAndTitle[0],
       url: s3Url
     };
     try {
@@ -113,8 +130,14 @@ export default function Program(props: any) {
     }
   };
 
+  useEffect(() => {
+    setAuthor(props.authorAndTitle[0])
+    setTitle(props.authorAndTitle[1])
+  }, [lyrics]);
+
   return (
-    <div className="flex flex-col sm:flex-row justify-center w-full gap-10">
+    <>
+    <div className="flex flex-col sm:flex-row justify-start w-full gap-10">
       <div className="flex flex-col">
         <motion.div
           initial={{ scale: 0 }}
@@ -128,25 +151,10 @@ export default function Program(props: any) {
         >
           <Textarea
             onChange={handleLyricsChange}
-            defaultValue={props.letraVagalume}
-            className="block w-full h-[70vh] resize-none border-b-[0.5px] border-gray-500  py-2 px-3 placeholder:text-gray-400 text-lg sm:leading-6"
-          />
-          <div className="mt-4 flex justify-center gap-20">
-            <Button
-              className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
-              onClick={handlePreview}
-              variant="outline"
-            >
-              Pré Visualizar
-            </Button>
-            <Button
-              className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
-              onClick={handleGeneratePPTX}
-              variant="outline"
-            >
-              Criar arquivo
-            </Button>
-          </div>
+            defaultValue={props?.letraVagalume}
+            className="block w-full h-[80vh] resize-none border-b-[0.5px] border-gray-500 py-2 px-3 placeholder:text-gray-400 text-lg sm:leading-6"
+          />            
+        
         </motion.div>
       </div>
 
@@ -210,5 +218,56 @@ export default function Program(props: any) {
         </Dialog>
       </Transition.Root>
     </div>
+
+    <ol className="text-white text-lg px-0 space-y-8 mt-6 w-content list-decimal absolute left-12 top-24">
+      <li className="flex gap-2 items-center justify-start">1. Pesquise a música no campo acima {props.letraVagalume && (<span className="text-green-300"><FaCheckCircle /></span>)}</li>
+      <li className="flex gap-2 items-center justify-start">2. Defina o espaço de 1 linha para separar cada slide {lyrics && (<span className="text-green-300"><FaCheckCircle /></span>)}</li>
+      <li className="flex gap-2 items-center justify-start">3. Clique em criar arquivo {create && (<span className="text-green-300"><FaCheckCircle /></span>)}</li>
+    </ol>
+
+    {lyrics && ( <div className="flex flex-col gap-2 w-full">
+      <div className="w-full flex items-center">
+        <span className="w-24 text-white">Título:</span>
+        <Textarea
+          onChange={handleTitleChange}
+          defaultValue={props?.authorAndTitle[1]}
+          className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
+        />
+      </div>
+      <div className="w-full flex items-center">
+        <span className="w-24 text-white">Autor:</span>
+        <Textarea
+          onChange={handleAuthorChange}
+          defaultValue={props?.authorAndTitle[0]}
+          className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
+        />
+      </div>
+      {title && ( 
+               <div className="mt-10 ml-16 pl-2 flex flex-col justify-center items-start gap-10">
+            <Button
+              className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
+              onClick={handlePreview}
+              variant="outline"
+            >
+              Pré Visualizar
+            </Button>
+            <Button
+              className="h-full w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-green-500/70 hover:bg-green-500/90 hover:text-white text-base font-semibold text-white"
+              onClick={handleGeneratePPTX}
+              variant="outline"
+            >
+              Gerar arquivo
+            </Button>
+            <Button
+              className="h-10 w-40 p-2 rounded-2xl border-gray-500 border-[1px] text-base font-semibold"
+              onClick={()=>{window.location.reload()}}
+              variant="destructive"
+            >
+              Limpar
+            </Button>
+          </div>)}
+      
+    </div>)}
+</>
   );
 }

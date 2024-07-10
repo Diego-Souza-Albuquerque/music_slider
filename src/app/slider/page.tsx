@@ -1,7 +1,7 @@
 "use client";
 import Program from "@/components/program";
-
-import { useState, Fragment, useEffect } from "react";
+import { FaCheckCircle } from "react-icons/fa";
+import { useState, Fragment } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +10,6 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
 import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
-import { Textarea } from "@/components/ui/textarea";
 
 interface Song {
   id: string;
@@ -29,10 +28,10 @@ export default function Slider() {
   const [open, setOpen] = useState(false);
   const [musicName, setMusicName] = useState("");
   const [searchResults, setSearchResults] = useState<Song[]>([]);
+  const [authorAndTitle, setAuthorAndTitle] = useState<string[]>([]);
   const [lyrics, setLyrics] = useState("");
   const [show, setShow] = useState(false);
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
+
   const [docs, setDocs] = useState<SlideDoc[]>([]);
 
   const handleInputChange = (e: any) => {
@@ -47,20 +46,7 @@ export default function Slider() {
   };
 
   const handleInformations = (title: string, author: string) => {
-    setAuthor(author);
-    setTitle(title);
-  };
-
-  const handleAuthorChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setAuthor(event.target.value);
-  };
-
-  const handleTitleChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setTitle(event.target.value);
+    setAuthorAndTitle([author, title]);
   };
 
   const handleSearch = async () => {
@@ -182,7 +168,7 @@ ${data.mus[0].text}`);
     }, []); */
 
   return (
-    <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full pt-10">
+    <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full pt-14">
       <div className="relative isolate overflow-hidden">
         <svg
           className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -226,7 +212,7 @@ ${data.mus[0].text}`);
           />
         </div>
 
-        <div className="mx-auto xl:px-12 lg:px-12 md:px-12 sm:px-6 px-6 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-start">
+        <div className="mx-auto xl:px-12 lg:px-12 md:px-12 sm:px-6 px-6 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between">
           <div className="flex flex-col items-center sm:w-full md:w-full lg:w-[45%] xl:w-[45%] justify-start py-10 gap-6">
             <div className="flex gap-3 w-full">
               <Input
@@ -234,7 +220,7 @@ ${data.mus[0].text}`);
                 value={musicName}
                 className="py-2 px-3 border-b-[0.5px] border-gray-500 focus:border-0 w-full"
                 onChange={handleInputChange}
-                placeholder="Digite o nome da música"
+                placeholder="Digite o nome da música ou do autor"
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     handleSearch();
@@ -255,36 +241,16 @@ ${data.mus[0].text}`);
               </Button>
             </div>
 
-            <ol className="text-white text-lg px-5 space-y-8 mt-6 w-full list-decimal">
-              <li>Pesquise a música no campo acima</li>
-              <li>Defina o espaço de 1 linha para separar cada slide</li>
-              <li>Clique em criar arquivo</li>
-            </ol>
+           
           </div>
 
-          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4 flex gap-4">
-            <Program letraVagalume={lyrics} title={title} author={author} />
-            <div className="flex gap-2 w-full">
-              <div className="w-full flex flex-col">
-                <span className="w-full text-white">Título da música:</span>
-                <Textarea
-                  onChange={handleTitleChange}
-                  defaultValue={title}
-                  className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
-                />
-              </div>
-              <div className="w-full flex flex-col">
-                <span className="w-full text-white">Autor:</span>
-                <Textarea
-                  onChange={handleAuthorChange}
-                  defaultValue={author}
-                  className="block w-full h-10 resize-none border-b-[0.5px] border-gray-500 px-3 placeholder:text-gray-400 text-base sm:leading-6"
-                />
-              </div>
-            </div>
+          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4 flex justify-start w-[60%] gap-6">
+            <Program letraVagalume={lyrics} authorAndTitle={authorAndTitle} />
+                      
           </div>
         </div>
       </div>
+      
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
