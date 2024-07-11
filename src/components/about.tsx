@@ -89,7 +89,7 @@ export default function About() {
           />
         </svg>
         <div
-          className="absolute left-1/2 right-0 -top-20 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
+          className="absolute left-1/2 right-0 -top-96 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
           aria-hidden="true"
         >
           <div
@@ -104,7 +104,7 @@ export default function About() {
         {/* Texto 1 */}
 
         <div className="mx-auto w-full pb-32 pt-36">
-          <div className="mx-auto flex justify-center gap-10 items-center">
+          <div className="mx-auto flex justify-between gap-10 items-center">
             <div className="w-full max-w-3xl">
               <h1
                 ref={ref}

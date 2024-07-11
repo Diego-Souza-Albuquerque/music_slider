@@ -48,8 +48,8 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="mx-auto w-full pb-10 pt-28 lg:pb-24 flex lg:flex-row flex-col gap-4 justify-center items-start ">
-            <div className="mx-auto lg:w-[52%] w-full flex flex-col justify-center lg:items-start items-center lg:mx-0">
+          <div className="mx-auto w-full pb-10 lg:pt-40 pt-28 lg:pb-24 flex lg:flex-row flex-col gap-4 justify-center items-start">
+            <div className="mx-auto lg:w-[52%] w-full flex flex-col justify-center lg:items-start items-center lg:mx-0 ">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-5xl lg:text-5xl xl:text-6xl lg:text-start text-center  px-2">
                 Transformando suas letras em slides de forma rápida e prática
               </h1>

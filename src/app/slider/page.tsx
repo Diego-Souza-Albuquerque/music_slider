@@ -10,6 +10,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
 import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
+import { motion } from "framer-motion";
 
 interface Song {
   id: string;
@@ -168,8 +169,17 @@ ${data.mus[0].text}`);
     }, []); */
 
   return (
-    <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full pt-14">
+    <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full lg:pt-14 pt-24">
       <div className="relative isolate overflow-hidden">
+      <motion.div 
+           animate={{
+            y: [0, 800, 0], // de 0 a 100px e depois volta para 0
+          }}
+          transition={{
+            duration: 20, // duração de cada ciclo de animação
+            repeat: Infinity, // repetir infinitamente
+            ease: "easeInOut", // suavização da animação
+          }}>
         <svg
           className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
           aria-hidden="true"
@@ -211,6 +221,7 @@ ${data.mus[0].text}`);
             }}
           />
         </div>
+        </motion.div>
 
         <div className="mx-auto xl:px-12 lg:px-12 md:px-12 sm:px-6 px-6 pt-2 flex flex-col gap-10 sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between">
           <div className="flex flex-col items-center sm:w-full md:w-full lg:w-[45%] xl:w-[45%] justify-start py-10 gap-6">
@@ -244,7 +255,7 @@ ${data.mus[0].text}`);
            
           </div>
 
-          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-4 flex justify-start w-[60%] gap-6">
+          <div className="xl:py-10 lg:py-10 md:py-10 sm:py-0 py-48 flex justify-start lg:w-[60%] w-full gap-6">
             <Program letraVagalume={lyrics} authorAndTitle={authorAndTitle} />
                       
           </div>
@@ -267,7 +278,7 @@ ${data.mus[0].text}`);
 
           <div className="fixed inset-0 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 pt-10">
                 <Transition.Child
                   as={Fragment}
                   enter="transform transition ease-in-out duration-500 sm:duration-700"
