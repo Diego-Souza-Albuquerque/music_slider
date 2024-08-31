@@ -11,7 +11,6 @@ import { useAuth } from "@/contexts/userContext";
 import uploadToS3 from "./send-to-s3";
 import { FaCheckCircle } from "react-icons/fa";
 
-
 type SlideType = {
   id: number;
   content: string;
