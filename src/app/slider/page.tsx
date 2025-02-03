@@ -1,21 +1,16 @@
 "use client";
 import Program from "@/components/program";
-import { FaCheckCircle } from "react-icons/fa";
 import { useState, Fragment } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
-import { createUrlToSearch, createUrlToGetById } from "@/components/vagalume";
-import Lottie from "lottie-react";
-
 interface Song {
   id: string;
-  title: string;
-  artist_or_author: string;
+  trackName: string;
+  artistName: string;
 }
 
 interface SlideDoc {
@@ -48,63 +43,6 @@ export default function Slider() {
     window.open(googleSearchURL, "_blank");
   };
 
-  const handleInformations = (title: string, author: string) => {
-    setAuthorAndTitle([author, title]);
-  };
-
-  const handleSearch = async () => {
-    setWalk(true);
-    const searchUrl = createUrlToSearch({ text: musicName });
-    try {
-      const response = await fetch(searchUrl);
-      const data = await response.json();
-      const songs: Song[] = [];
-
-      for (const item of data.items) {
-        const titleWithArtist = item.title.split("-");
-
-        if (
-          titleWithArtist[0] &&
-          titleWithArtist[1] &&
-          typeof titleWithArtist[0] === "string" &&
-          typeof titleWithArtist[1] === "string"
-        ) {
-          const title = titleWithArtist[0].trim();
-          const artist = titleWithArtist[1].replace(/\.\.\./g, "").trim();
-          const id = `${title}#${artist}`;
-
-          if (
-            artist !== "fotos" &&
-            artist !== "relacionados" &&
-            artist !== "VAGALUME"
-          ) {
-            songs.push({
-              id,
-              title,
-              artist_or_author: artist,
-            });
-          }
-        }
-      }
-
-      setSearchResults(songs);
-      setTimeout(() => {      
-        setWalk(false);   
-        setOpen(true);  
-      }, 2500);
-     
-     
-    } catch (error) {
-      setShow(true);
-      setTimeout(() => {
-        setShow(false);
-        setWalk(false);
-        searchInternet();
-      }, 2500);
-      console.error("Erro na pesquisa:", error);
-    }
-  };
-
   const getSpecificSlide = async (name: string) => {
     console.log(name)
     try {
@@ -127,55 +65,59 @@ export default function Slider() {
     }
   };
 
-  const handleSongSelect = async (id: string | null) => {
-    const songUrl = createUrlToGetById(id);
-
-    if (songUrl === null) {
-      console.error("URL da música é nula. Verifique o ID.");
-      return;
-    }
-
-    try {
-      const response = await fetch(songUrl);
-      const data = await response.json();
-      setLyrics(`${data.mus[0].name}
-${data.art.name}
-
-${data.mus[0].text}`);
-      console.log(data);
-      setOpen(false);
-    } catch (error) {
-      setShow(true);
-      setTimeout(() => {
-        setShow(false);
-      }, 3000);
-      console.error("Erro ao obter a música:", error);
-    }
+  const fetchLyrics = async () => {
+    setWalk(true); 
+    try{
+    const response = await fetch("/api/searchLyrics", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: musicName }),
+    });
+  
+    const data = await response.json();
+    setSearchResults(data);
+    setTimeout(() => {      
+      setWalk(false);   
+      setOpen(true);  
+    }, 2500);
+   
+   
+  } catch (error) {
+    setShow(true);
+    setTimeout(() => {
+      setShow(false);
+      setWalk(false);
+      searchInternet();
+    }, 2500);
+    console.error("Erro na pesquisa:", error);
+  }
   };
 
-  /*   const getAllSlides = async () => {
-      try {
-        const response = await fetch('/api/getAllSliders', {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-    
-        if (!response.ok) {
-          throw new Error('Erro na resposta do servidor');
-        }
-    
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error("Erro durante a requisição para o backend", error);
+  const newlyrics = async (id: string) => {
+    try {
+      const response = await fetch(`/api/getLyrics?id=${id}`);
+  
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar a letra: ${response.statusText}`);
       }
-    };
-    
-    useEffect(() => {
-      getAllSlides()
-    }, []); */
+  
+      const data = await response.json();
+  
+      if (!data.plainLyrics) {
+        throw new Error("Letra não encontrada.");
+      }
+  
+      setLyrics(data.plainLyrics);
+      setOpen(false);
+    } catch (error) {
+      console.error("Erro ao obter a letra da música:", error);
+      alert("Não foi possível carregar a letra. Tente novamente mais tarde.");
+    }
+  }; 
+
+   /*  useEffect(() => {
+      fetchLyrics()
+    }, []);  */
 
   return (
     <main className="bg-gray-900 xl:h-screen lg:h-screen md:h-full sm:h-full w-full lg:pt-14 pt-24">
@@ -193,7 +135,7 @@ ${data.mus[0].text}`);
                 placeholder="Digite o nome da música ou do autor"
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
-                    handleSearch();
+                    fetchLyrics();
                     getSpecificSlide(musicName)
                   }
                 }}
@@ -202,7 +144,7 @@ ${data.mus[0].text}`);
               <Button
                 className="h-10 w-40 p-2 rounded-2xl border-gray-500 border-[1px] bg-transparent hover:bg-white hover:text-black text-base font-semibold text-white"
                 onClick={() => {
-                  handleSearch()
+                  fetchLyrics()
                   getSpecificSlide(musicName)
                 }}
                 variant="outline"
@@ -288,23 +230,20 @@ ${data.mus[0].text}`);
                           <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-3">
                             <h1>Título da música</h1> <h1>Autor</h1>
                           </div>
-                          {searchResults.map((song) => (
+                          {searchResults.map((song, index) => (
                             <div
-                              key={song.id}
-                              onClick={() => {
-                                handleSongSelect(song.id);
-                                handleInformations(
-                                  song.title,
-                                  song.artist_or_author
-                                );
+                              key={index}
+                              onClick={() => {                                
+                                newlyrics(song.id);
+                                setAuthorAndTitle([song.artistName, song.trackName])                            
                               }}
                               className="px-3 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
                             >
                               <dt className="text-gray-500 dark:text-white">
-                                {song.title.replace(" - VAGALUME", "")}
+                                {song.trackName}
                               </dt>
                               <dd className="text-gray-900 dark:text-white">
-                                {song.artist_or_author}
+                                {song.artistName}
                               </dd>
                             </div>
                           ))}
@@ -320,9 +259,9 @@ ${data.mus[0].text}`);
                               <div className="flex text-black dark:text-white w-full justify-between py-2 bg-gray-200 dark:bg-gray-700 px-3">
                                 <h1>Título da música</h1> <h1>Autor</h1>
                               </div>
-                              {docs?.map((doc) => (
+                              {docs?.map((doc, index) => (
                                 <a
-                                  key={doc.id}
+                                  key={index}
                                   href={`${doc.url}`}
                                   className="px-3 flex justify-between py-3 text-sm font-medium cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500"
                                 >

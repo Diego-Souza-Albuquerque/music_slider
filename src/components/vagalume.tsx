@@ -1,4 +1,3 @@
-import axios from "axios";
 
 function createUrlToSearch(input: { text: string }): string {
   return `https://www.googleapis.com/customsearch/v1?key=${
